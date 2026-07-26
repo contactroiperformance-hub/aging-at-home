@@ -159,7 +159,7 @@ function FloridaStatePage() {
         }}
       />
       <main id="main-content">
-        <div className="container">
+        <div className="container wrap-wide">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -169,16 +169,16 @@ function FloridaStatePage() {
           />
         </div>
         <section className="page-hero page-hero--state">
-          <div className="container state-hero">
+          <div className="container wrap-wide state-hero">
             <div>
               <p className="eyebrow">Florida planning guide · Updated July 2026</p>
               <h1>{statePage.h1}</h1>
-              <p className="lede">{statePage.meta_description}</p>
+              <p className="lede lead">{statePage.meta_description}</p>
               <ZipCheck label="Check local options" />
             </div>
-            <div className="range-card">
-              <span>National planning range</span>
-              <strong>{statePage.national_cost_range.label}</strong>
+            <div className="range-card card card--lg card--panel">
+              <span className="stat-label">National planning range</span>
+              <strong className="stat">{statePage.national_cost_range.label}</strong>
               <p>
                 Not a Florida quote. Local written estimates are the only real
                 project price.
@@ -190,8 +190,8 @@ function FloridaStatePage() {
           </div>
         </section>
 
-        <section className="section section--tight">
-          <div className="container">
+        <section className="section section--tight section--white">
+          <div className="container wrap-wide">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Statewide context</p>
@@ -199,16 +199,16 @@ function FloridaStatePage() {
               </div>
               <span className="source-date">{demographics.vintage}</span>
             </div>
-            <div className="fact-grid">
+            <div className="fact-grid grid">
               {demographics.metrics.map((metric) => (
-                <article className="fact-card" key={metric.label}>
-                  <span>{metric.label}</span>
-                  <strong>{metric.estimate}</strong>
+                <article className="fact-card card" key={metric.label}>
+                  <span className="stat-label">{metric.label}</span>
+                  <strong className="stat">{metric.estimate}</strong>
                   <p>{metric.note}</p>
                 </article>
               ))}
             </div>
-            <p className="source-date">
+            <p className="source-date fine">
               Source:{" "}
               <a href={demographics.source_url}>U.S. Census Bureau, American Community Survey</a>.
               Retrieved {demographics.retrieved_at}. Estimates describe the state,
@@ -217,22 +217,22 @@ function FloridaStatePage() {
           </div>
         </section>
 
-        <section className="section section--tint">
-          <div className="container split-section split-section--wide">
+        <section className="section section--tint section--band">
+          <div className="container wrap-wide split-section split-section--wide">
             <div>
               <p className="eyebrow">Licensing and permits</p>
               <h2>Verify the professional and the project scope</h2>
               <p>{licenseGuidance.distinction}</p>
               <p>{licenseGuidance.note}</p>
               <a
-                className="button button--primary"
+                className="button button--primary btn btn--teal"
                 href={licenseGuidance.license_search_url}
                 rel="noopener noreferrer"
               >
                 Search Florida DBPR licenses
               </a>
             </div>
-            <div className="answer-box">
+            <div className="answer-box note">
               <strong>Permits vary by address and scope</strong>
               <p>
                 Plumbing, electrical, structural, or wider remodeling work may
@@ -244,8 +244,8 @@ function FloridaStatePage() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container">
+        <section className="section section--white">
+          <div className="container wrap-wide">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Eligibility varies</p>
@@ -253,10 +253,10 @@ function FloridaStatePage() {
               </div>
               <Link href="/financial-assistance/">Read the full assistance guide</Link>
             </div>
-            <div className="program-grid">
+            <div className="program-grid grid">
               {assistancePrograms.map((program) => (
-                <article className="program-card" key={program.program}>
-                  <span>{program.agency}</span>
+                <article className="program-card card" key={program.program}>
+                  <span className="stat-label">{program.agency}</span>
                   <h3>{program.program}</h3>
                   <p>
                     <strong>Who it serves:</strong> {program.population}
@@ -270,29 +270,29 @@ function FloridaStatePage() {
                 </article>
               ))}
             </div>
-            <p className="source-date">
+            <p className="source-date fine">
               Programs determine eligibility and approval. Status and funding
               availability should be reconfirmed before work begins.
             </p>
           </div>
         </section>
 
-        <section className="section section--tint">
-          <div className="container">
+        <section className="section section--tint section--band">
+          <div className="container wrap-wide">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">17 publication-ready city records</p>
                 <h2>Florida city guides</h2>
               </div>
             </div>
-            <div className="city-directory">
+            <div className="city-directory grid grid--tight">
               {Object.entries(
                 publishedCities.reduce<Record<string, City[]>>((groups, city) => {
                   (groups[city.region] ??= []).push(city);
                   return groups;
                 }, {}),
               ).map(([region, regionCities]) => (
-                <section className="city-region" key={region}>
+                <section className="city-region card" key={region}>
                   <h3>{region}</h3>
                   {regionCities.map((city) => (
                     <Link
@@ -308,8 +308,8 @@ function FloridaStatePage() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container sources">
+        <section className="section section--white">
+          <div className="container wrap-wide sources">
             <p className="eyebrow">Authoritative references</p>
             <h2>Florida source library</h2>
             <ul>
@@ -374,7 +374,7 @@ function CityPage({ city }: { city: City }) {
         }}
       />
       <main id="main-content">
-        <div className="container">
+        <div className="container wrap-wide">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -385,19 +385,19 @@ function CityPage({ city }: { city: City }) {
           />
         </div>
         <section className="city-hero">
-          <div className="container city-hero__grid">
+          <div className="container wrap-wide city-hero__grid">
             <div>
               <p className="eyebrow">
                 {city.county} · {city.region}
               </p>
               <h1>{city.h1}</h1>
-              <p className="lede">{city.intro[0]}</p>
-              <div className="review-line">
+              <p className="lede lead">{city.intro[0]}</p>
+              <div className="review-line meta">
                 <span>Local sources checked {city.source_last_checked}</span>
                 <span>{gate.pass ? "Publication quality gate passed" : "Editorial review required"}</span>
               </div>
             </div>
-            <div className="city-cta">
+            <div className="city-cta card card--lg card--panel">
               <p className="eyebrow">Local project options</p>
               <h2>Start with your ZIP code</h2>
               <p>
@@ -409,9 +409,9 @@ function CityPage({ city }: { city: City }) {
           </div>
         </section>
 
-        <div className="container city-layout">
+        <div className="container wrap-wide city-layout article-shell">
           <article className="prose">
-            <div className="answer-box">
+            <div className="answer-box note">
               <strong>Local planning summary</strong>
               <p>{city.summary}</p>
             </div>
@@ -420,18 +420,18 @@ function CityPage({ city }: { city: City }) {
             ))}
 
             <h2>{city.name} at a glance</h2>
-            <div className="fact-grid fact-grid--city">
+            <div className="fact-grid fact-grid--city grid">
               {city.facts.map((fact) => (
-                <article className="fact-card" key={fact.label}>
-                  <span>{fact.label}</span>
-                  <strong>{fact.value}</strong>
+                <article className="fact-card card" key={fact.label}>
+                  <span className="stat-label">{fact.label}</span>
+                  <strong className="stat">{fact.value}</strong>
                   <p>{fact.note}</p>
                 </article>
               ))}
             </div>
 
             <h2>Permits and inspections</h2>
-            <div className="permit-card">
+            <div className="permit-card card">
               <p className="eyebrow">Authority having jurisdiction</p>
               <h3>
                 <a href={city.permit.url}>{city.permit.authority}</a>
@@ -445,9 +445,9 @@ function CityPage({ city }: { city: City }) {
             </div>
 
             <h2>Local planning considerations</h2>
-            <div className="consideration-grid">
+            <div className="consideration-grid grid">
               {city.considerations.map((item) => (
-                <article key={item.h}>
+                <article className="card" key={item.h}>
                   <h3>{item.h}</h3>
                   <p>{item.d}</p>
                 </article>
@@ -455,9 +455,9 @@ function CityPage({ city }: { city: City }) {
             </div>
 
             <h2>Cost reference</h2>
-            <div className="range-card range-card--inline">
-              <span>National planning range</span>
-              <strong>{statePage.national_cost_range.label}</strong>
+            <div className="range-card range-card--inline card card--lg">
+              <span className="stat-label">National planning range</span>
+              <strong className="stat">{statePage.national_cost_range.label}</strong>
               <p>
                 A planning reference—not a {city.name} quote. We do not publish
                 city-level prices without a verified local sample.
@@ -468,9 +468,9 @@ function CityPage({ city }: { city: City }) {
             </div>
 
             <h2>Local aging and housing resources</h2>
-            <div className="resource-list">
+            <div className="resource-list grid">
               {city.resources.map((resource) => (
-                <article key={resource.url}>
+                <article className="card" key={resource.url}>
                   <h3>
                     <a href={resource.url}>{resource.name}</a>
                   </h3>
@@ -482,7 +482,7 @@ function CityPage({ city }: { city: City }) {
             <h2>{city.name} questions</h2>
             <div className="faq-list">
               {city.faqs.map((faq) => (
-                <details key={faq.q}>
+                <details className="faq" key={faq.q}>
                   <summary>{faq.q}</summary>
                   <p>{faq.a}</p>
                 </details>
@@ -492,7 +492,7 @@ function CityPage({ city }: { city: City }) {
             <section className="sources">
               <p className="eyebrow">Primary and authoritative references</p>
               <h2>Sources</h2>
-              <ul>
+              <ul className="checklist">
                 {city.sources.map((source) => (
                   <li key={source.url}>
                     <a href={source.url}>
@@ -502,15 +502,15 @@ function CityPage({ city }: { city: City }) {
                   </li>
                 ))}
               </ul>
-              <p className="source-date">
+              <p className="source-date fine">
                 Local source checks: {city.source_last_checked}. Confirm current
                 requirements and program availability with the issuing authority.
               </p>
             </section>
           </article>
 
-          <aside className="article-aside city-aside">
-            <div className="aside-card">
+          <aside className="article-aside city-aside sidebar sidebar--wide">
+            <div className="aside-card card card--panel">
               <p className="eyebrow">Before work begins</p>
               <h2>Review the written scope</h2>
               <ul>
@@ -525,14 +525,14 @@ function CityPage({ city }: { city: City }) {
                 Verify a Florida license
               </a>
             </div>
-            <div className="aside-card aside-card--plain">
+            <div className="aside-card aside-card--plain card">
               <p className="eyebrow">Nearby guides</p>
               {city.nearby.map((nearby) => (
-                <Link href={relatedHref(nearby.href)} key={nearby.name}>
+                <Link className="chip" href={relatedHref(nearby.href)} key={nearby.name}>
                   {nearby.name}
                 </Link>
               ))}
-              <Link href="/tub-to-shower-conversion/florida/">All Florida cities</Link>
+              <Link className="chip" href="/tub-to-shower-conversion/florida/">All Florida cities</Link>
             </div>
           </aside>
         </div>
@@ -574,7 +574,7 @@ export default async function DynamicPage({ params }: PageProps) {
     route === "your-privacy-choices" ? (
       <PrivacyChoices />
     ) : route === "contact" ? (
-      <div className="contact-panel">
+      <div className="contact-panel note">
         <h2>Contact Aging at Home Advisor</h2>
         <p>
           Email: <a href="mailto:support@agingathomeadvisor.com">support@agingathomeadvisor.com</a>

@@ -32,23 +32,23 @@ export default function GuidesPage() {
         }}
       />
       <main id="main-content">
-        <div className="container">
+        <div className="container wrap">
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Guides" }]} />
         </div>
         <section className="page-hero">
-          <div className="container narrow">
+          <div className="container wrap narrow">
             <p className="eyebrow">Source-led planning library</p>
             <h1>Helpful guides for planning ahead</h1>
-            <p className="lede">
+            <p className="lede lead">
               Compare project types, understand costs, review safety features,
               and learn where public benefits may—or may not—help.
             </p>
           </div>
         </section>
-        <section className="section section--tight">
-          <div className="container guide-grid">
+        <section className="section section--tight section--white">
+          <div className="container wrap-wide guide-grid grid">
             {guides.map(([route, guide]) => (
-              <article className="guide-card" key={route}>
+              <article className="guide-card card" key={route}>
                 {"image" in guide && "imageAlt" in guide ? (
                   <Picture name={guide.image} alt={guide.imageAlt} />
                 ) : null}
@@ -70,4 +70,3 @@ export default function GuidesPage() {
     </>
   );
 }
-

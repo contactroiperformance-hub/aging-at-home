@@ -1,23 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #faf6ee;
-  --paper: #ffffff;
-  --ink: #22312f;
-  --body: #3d4c49;
-  --muted: #5c6b67;
-  --teal: #164e52;
-  --teal-dark: #0e3b3e;
-  --rust: #a34d22;
-  --rust-dark: #8c3f19;
-  --sage: #47664f;
-  --sage-wash: #eaf0ec;
-  --sand: #f3eedf;
-  --border: #e7e0d2;
-  --focus: #164e52;
-  --shadow: 0 12px 32px rgba(34, 49, 47, 0.12);
-  --serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
-  --sans: "Source Sans 3 Variable", "Source Sans 3", Helvetica, Arial, sans-serif;
+  --cream: var(--page);
+  --paper: var(--card);
+  --teal-dark: var(--teal-hover);
+  --rust: var(--cta);
+  --rust-dark: var(--cta-hover);
+  --sage-wash: var(--sage-tint);
+  --sand: var(--band);
 }
 
 * {
@@ -457,7 +447,7 @@ p {
   box-shadow: 0 1px 2px rgba(34, 49, 47, 0.05);
 }
 
-.zip-check label {
+.zip-check:not(.field) label {
   display: block;
   margin-bottom: 7px;
   color: var(--ink);
@@ -471,7 +461,7 @@ p {
   gap: 10px;
 }
 
-.zip-check input {
+.zip-check:not(.field) input {
   width: 100%;
   min-height: 54px;
   border: 2px solid #9eaaa6;
@@ -481,7 +471,7 @@ p {
   color: var(--ink);
 }
 
-.zip-check button {
+.zip-check button:not(.btn) {
   min-height: 54px;
   border: 0;
   border-radius: 10px;
@@ -565,6 +555,12 @@ p {
   background: var(--paper);
   box-shadow: 0 1px 2px rgba(34, 49, 47, 0.05);
   transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.service-card.card,
+.guide-card.card {
+  padding: 0;
+  gap: 0;
 }
 
 .service-card:hover,
@@ -889,7 +885,7 @@ p {
   font-size: 1.5rem;
 }
 
-.aside-card p {
+.aside-card:not(.card) p {
   font-size: 0.92rem;
 }
 
@@ -981,9 +977,9 @@ p {
   box-shadow: var(--shadow);
 }
 
-.range-card > span,
-.fact-card > span,
-.program-card > span {
+.range-card > span:not(.stat-label),
+.fact-card > span:not(.stat-label),
+.program-card > span:not(.stat-label) {
   display: block;
   color: var(--muted);
   font-size: 0.76rem;
@@ -992,7 +988,7 @@ p {
   text-transform: uppercase;
 }
 
-.range-card > strong {
+.range-card > strong:not(.stat) {
   display: block;
   margin: 4px 0 6px;
   color: var(--teal);
@@ -1028,7 +1024,7 @@ p {
   background: var(--paper);
 }
 
-.fact-card > strong {
+.fact-card > strong:not(.stat) {
   display: block;
   margin: 4px 0 3px;
   color: var(--teal);
@@ -1037,7 +1033,7 @@ p {
   line-height: 1.2;
 }
 
-.fact-card p {
+.fact-card:not(.card) p {
   margin: 0;
   font-size: 0.86rem;
   line-height: 1.5;
@@ -1065,9 +1061,9 @@ p {
   margin: 6px 0 10px;
 }
 
-.program-card p,
-.consideration-grid p,
-.resource-list p {
+.program-card:not(.card) p,
+.consideration-grid article:not(.card) p,
+.resource-list article:not(.card) p {
   margin: 8px 0;
   font-size: 0.92rem;
 }

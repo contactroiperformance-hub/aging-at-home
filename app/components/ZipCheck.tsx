@@ -25,7 +25,7 @@ export function ZipCheck({
 
   return (
     <form
-      className={`zip-check ${compact ? "zip-check--compact" : ""}`}
+      className={`zip-check field ${compact ? "zip-check--compact" : ""}`}
       action="/contact/"
       method="get"
       onSubmit={validate}
@@ -44,17 +44,16 @@ export function ZipCheck({
           aria-describedby={error ? "zip-error" : undefined}
           placeholder="e.g. 33602"
         />
-        <button type="submit">{label}</button>
+        <button className="btn btn--cta" type="submit">{label}</button>
       </div>
       {error ? (
         <span id="zip-error" className="form-error" role="alert">
           {error}
         </span>
       ) : null}
-      <small>
+      <small className="fine">
         Free request. No obligation. Availability varies by ZIP code and project type.
       </small>
     </form>
   );
 }
-

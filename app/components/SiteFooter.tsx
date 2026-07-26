@@ -18,27 +18,27 @@ function FooterBrand() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="container footer-grid">
+      <div className="container wrap-wide footer-grid">
         <div>
           <FooterBrand />
           <p>Trusted guidance for aging safely at home.</p>
         </div>
         <div>
-          <h2>Solutions</h2>
+          <h2 className="label">Solutions</h2>
           <Link href="/bathroom-accessibility/">Bathroom accessibility</Link>
           <Link href="/walk-in-showers/">Walk-in showers</Link>
           <Link href="/walk-in-tubs/">Walk-in tubs</Link>
           <Link href="/tub-to-shower-conversion/">Tub-to-shower conversion</Link>
         </div>
         <div>
-          <h2>Resources</h2>
+          <h2 className="label">Resources</h2>
           <Link href="/financial-assistance/">Financial assistance</Link>
           <Link href="/guides/">Guides</Link>
           <Link href="/bathroom-accessibility/#costs">Typical costs</Link>
           <Link href="/tub-to-shower-conversion/florida/">Find local options</Link>
         </div>
         <div>
-          <h2>Company</h2>
+          <h2 className="label">Company</h2>
           <Link href="/about/">About</Link>
           <Link href="/editorial-policy/">Editorial policy</Link>
           <Link href="/corrections-policy/">Corrections policy</Link>
@@ -47,7 +47,7 @@ export function SiteFooter() {
           <Link href="/contact/">Contact</Link>
         </div>
         <div>
-          <h2>Legal</h2>
+          <h2 className="label">Legal</h2>
           <Link href="/privacy-policy/">Privacy policy</Link>
           <Link href="/cookie-policy/">Cookie policy</Link>
           <Link href="/terms/">Terms of use</Link>
@@ -55,7 +55,7 @@ export function SiteFooter() {
           <Link href="/your-privacy-choices/">Your privacy choices</Link>
         </div>
       </div>
-      <div className="container footer-disclosure">
+      <div className="container wrap-wide footer-disclosure">
         <p>
           Aging at Home Advisor, operated by ROI PERFORMANCE LLC, is an independent
           information and referral platform. It is not a government agency,
@@ -65,7 +65,7 @@ export function SiteFooter() {
           Cost figures are national planning ranges, not quotes.
         </p>
       </div>
-      <div className="container footer-bottom">
+      <div className="container wrap-wide footer-bottom">
         <p>© 2026 Aging at Home Advisor. All rights reserved.</p>
         <p>AgingAtHomeAdvisor.com</p>
       </div>

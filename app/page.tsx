@@ -82,20 +82,20 @@ export default function HomePage() {
       />
       <main id="main-content">
         <section className="home-hero">
-          <div className="container home-hero__grid">
+          <div className="container wrap-wide home-hero__grid">
             <div className="home-hero__copy">
               <p className="eyebrow">Independent guidance for a safer home</p>
               <h1>Make Your Home Safer for the Years Ahead</h1>
-              <p className="lede">
+              <p className="lede lead">
                 Explore accessible bathroom solutions, understand costs and
                 financial assistance, and connect with qualified home improvement
                 professionals.
               </p>
               <div className="hero-actions">
-                <Link className="button button--primary" href="/contact/">
+                <Link className="button button--primary btn btn--cta" href="/contact/">
                   Find Options Near You
                 </Link>
-                <Link className="button button--secondary" href="/bathroom-accessibility/">
+                <Link className="button button--secondary btn btn--ghost" href="/bathroom-accessibility/">
                   Explore Bathroom Solutions
                 </Link>
               </div>
@@ -113,7 +113,7 @@ export default function HomePage() {
         </section>
 
         <section className="home-proof" aria-label="Why use Aging at Home Advisor">
-          <div className="container home-proof__grid">
+          <div className="container wrap-wide home-proof__grid">
             {[
               "Independent consumer guidance",
               "Clear cost information",
@@ -128,8 +128,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container">
+        <section className="section section--white">
+          <div className="container wrap-wide">
             <div className="section-heading">
               <div>
                 <h2>What would you like to make safer?</h2>
@@ -141,7 +141,7 @@ export default function HomePage() {
             </div>
             <div className="service-grid">
               {services.map((service) => (
-                <article className="service-card" key={service.href}>
+                <article className="service-card card" key={service.href}>
                   <Picture name={service.image} alt={service.alt} />
                   <div>
                     <h3>
@@ -158,17 +158,17 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section section--tint">
-          <div className="container split-section">
+        <section className="section section--tint section--band">
+          <div className="container wrap-wide split-section">
             <div>
               <p className="eyebrow">A practical planning process</p>
               <h2>Make decisions in the right order</h2>
-              <p className="lede lede--small">
+              <p className="lede lede--small lead">
                 Start with daily barriers, then compare project scope, features,
                 funding, and written estimates. A product alone does not make a
                 bathroom accessible.
               </p>
-              <Link className="button button--primary" href="/bathroom-accessibility/">
+              <Link className="button button--primary btn btn--cta" href="/bathroom-accessibility/">
                 Build your plan
               </Link>
             </div>
@@ -193,8 +193,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container editorial-grid">
+        <section className="section section--white">
+          <div className="container wrap-wide editorial-grid">
             <div>
               <p className="eyebrow">Why readers can trust the process</p>
               <h2>Useful answers without invented certainty</h2>
@@ -205,12 +205,12 @@ export default function HomePage() {
                 pretending we have local offices or vetted every professional.
               </p>
               <div className="link-cluster">
-                <Link href="/editorial-policy/">Editorial policy</Link>
-                <Link href="/how-we-make-money/">How we make money</Link>
-                <Link href="/corrections-policy/">Corrections policy</Link>
+                <Link className="chip" href="/editorial-policy/">Editorial policy</Link>
+                <Link className="chip" href="/how-we-make-money/">How we make money</Link>
+                <Link className="chip" href="/corrections-policy/">Corrections policy</Link>
               </div>
             </div>
-            <div className="guide-list">
+            <div className="guide-list card card--lg">
               <h3>Popular planning guides</h3>
               {guides.map((guide) => (
                 <Link href={guide.href} key={guide.href}>
@@ -224,8 +224,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="cta-band">
-          <div className="container cta-band__inner">
+        <section className="cta-band section--teal">
+          <div className="container wrap-wide cta-band__inner">
             <div>
               <p className="eyebrow">Florida local guides</p>
               <h2>Planning a tub-to-shower conversion in Florida?</h2>
@@ -234,7 +234,7 @@ export default function HomePage() {
                 permit, Census, assistance, and local-resource records.
               </p>
             </div>
-            <Link className="button button--light" href="/tub-to-shower-conversion/florida/">
+            <Link className="button button--light btn btn--ghost" href="/tub-to-shower-conversion/florida/">
               Explore Florida guides
             </Link>
           </div>

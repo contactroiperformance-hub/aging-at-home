@@ -27,7 +27,7 @@ export function PrivacyChoices() {
   }
 
   return (
-    <section className="privacy-controls" aria-labelledby="privacy-controls-title">
+    <section className="privacy-controls card card--lg" aria-labelledby="privacy-controls-title">
       <p className="eyebrow">Browser controls</p>
       <h2 id="privacy-controls-title">Manage optional data use on this device</h2>
       <label className="choice-row">
@@ -52,7 +52,7 @@ export function PrivacyChoices() {
           onChange={(event) => setAdvertising(event.target.checked)}
         />
       </label>
-      <button className="button button--primary" type="button" onClick={save}>
+      <button className="button button--primary btn btn--cta" type="button" onClick={save}>
         Save privacy choices
       </button>
       {saved ? <p role="status">Your choices have been saved on this device.</p> : null}

@@ -23,7 +23,7 @@ export function SiteHeader() {
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
-      <div className="container header-inner">
+      <div className="container wrap-wide header-inner">
         <Link className="brand" href="/" aria-label="Aging at Home Advisor, home">
           <span className="brand-mark"><HouseMark /></span>
           <span>
@@ -42,7 +42,7 @@ export function SiteHeader() {
           <small>Call for guidance</small>
           <strong>(833) 363-2420</strong>
         </a>
-        <Link className="button button--header" href="/contact/">
+        <Link className="button button--header btn btn--cta" href="/contact/">
           Find Options Near You
         </Link>
         <details className="mobile-nav">

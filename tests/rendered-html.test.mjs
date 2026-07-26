@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
@@ -58,10 +59,26 @@ test("server-renders a complete, canonical homepage", async () => {
   assert.match(html, /<title>Safer Bathroom Planning for Aging at Home/);
   assert.match(html, /rel="canonical" href="https:\/\/agingathomeadvisor.com\/"/);
   assert.match(html, /Make Your Home Safer for the Years Ahead/);
+  assert.match(html, /rel="preconnect" href="https:\/\/fonts.gstatic.com"/);
+  assert.match(html, /fonts.googleapis.com\/css2\?family=Source\+Serif\+4/);
+  assert.match(html, /class="[^"]*\bbtn\b[^"]*\bbtn--cta\b/);
+  assert.match(html, /class="[^"]*\bwrap-wide\b/);
   assert.match(html, /<main id="main-content">/);
   assert.match(html, /type="application\/ld\+json"/);
   assert.match(html, /Organization/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|LocalBusiness/);
+});
+
+test("keeps the supplied production design system byte-for-byte", async () => {
+  const css = await readFile(
+    new URL("../app/design-system.css", import.meta.url),
+    "utf8",
+  );
+  const hash = createHash("sha256").update(css).digest("hex");
+  assert.equal(
+    hash,
+    "c6c8feca0547bf195e658232b49c5f4b07cda06b28c6ccb1b3739adc998ebaac",
+  );
 });
 
 test("server-renders a data-driven city page with local sources", async () => {
@@ -78,6 +95,8 @@ test("server-renders a data-driven city page with local sources", async () => {
     /rel="canonical" href="https:\/\/agingathomeadvisor.com\/tub-to-shower-conversion\/florida\/tampa\/"/,
   );
   assert.match(html, /BreadcrumbList/);
+  assert.match(html, /class="faq"/);
+  assert.match(html, /class="[^"]*\bsidebar--wide\b/);
   assert.doesNotMatch(html, /LocalBusiness|AggregateRating|Review"/);
 });
 

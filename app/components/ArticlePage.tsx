@@ -67,16 +67,16 @@ export function ArticlePage({
         }}
       />
       <main id="main-content">
-        <div className="container">
+        <div className="container wrap">
           <Breadcrumbs items={crumbs} />
         </div>
         <section className={`page-hero ${page.image ? "page-hero--with-image" : ""}`}>
-          <div className="container page-hero__grid">
+          <div className="container wrap page-hero__grid">
             <div>
               <p className="eyebrow">{page.eyebrow}</p>
               <h1>{page.title}</h1>
-              <p className="lede">{page.description}</p>
-              <div className="review-line">
+              <p className="lede lead">{page.description}</p>
+              <div className="review-line meta">
                 <span>Published July 2026</span>
                 <span>Source-led editorial process</span>
               </div>
@@ -87,10 +87,10 @@ export function ArticlePage({
           </div>
         </section>
         <div
-          className={`container article-layout ${isGuide ? "article-layout--guide" : ""} ${isLegal ? "article-layout--legal" : ""}`}
+          className={`container wrap article-layout article-shell ${isGuide ? "article-layout--guide" : ""} ${isLegal ? "article-layout--legal" : ""}`}
         >
           <article className="prose">
-            <div className="answer-box">
+            <div className="answer-box note">
               <strong>At a glance</strong>
               <p>{page.description}</p>
             </div>
@@ -121,7 +121,7 @@ export function ArticlePage({
                     </li>
                   ))}
                 </ul>
-                <p className="source-date">
+                <p className="source-date fine">
                   Source list and page content last checked July 2026. Benefit,
                   permit, and program details should be confirmed with the issuing
                   authority before making a decision.
@@ -130,8 +130,8 @@ export function ArticlePage({
             ) : null}
           </article>
           {!isLegal ? (
-            <aside className="article-aside">
-              <div className="aside-card">
+            <aside className="article-aside sidebar">
+              <div className="aside-card card card--panel">
                 <p className="eyebrow">Local project options</p>
                 <h2>Start with your ZIP code</h2>
                 <p>
@@ -140,7 +140,7 @@ export function ArticlePage({
                 </p>
                 <ZipCheck compact label="Continue" />
               </div>
-              <div className="aside-card aside-card--plain">
+              <div className="aside-card aside-card--plain card">
                 <h2>Use trustworthy information</h2>
                 <p>
                   We do not publish fabricated local prices, ratings, offices, or

@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import "@fontsource-variable/source-sans-3";
-import "@fontsource-variable/source-serif-4";
 import "./globals.css";
+import "./design-system.css";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
 import { StructuredData } from "./components/StructuredData";
@@ -71,6 +70,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-US">
+      <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&family=Source+Sans+3:wght@400..700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <StructuredData
           data={{
