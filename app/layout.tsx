@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
+import "@fontsource-variable/source-sans-3";
+import "@fontsource-variable/source-serif-4";
 import "./globals.css";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";

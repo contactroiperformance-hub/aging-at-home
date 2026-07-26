@@ -1,12 +1,21 @@
 import Link from "next/link";
 
 const navigation = [
-  { href: "/bathroom-accessibility/", label: "Bathroom safety" },
-  { href: "/tub-to-shower-conversion/", label: "Tub-to-shower" },
-  { href: "/walk-in-showers/", label: "Walk-in showers" },
-  { href: "/walk-in-tubs/", label: "Walk-in tubs" },
+  { href: "/bathroom-accessibility/", label: "Bathroom Solutions" },
+  { href: "/bathroom-accessibility/#costs", label: "Costs" },
+  { href: "/financial-assistance/", label: "Financial Assistance" },
   { href: "/guides/", label: "Guides" },
+  { href: "/about/", label: "About" },
 ];
+
+function HouseMark() {
+  return (
+    <svg width="38" height="38" viewBox="0 0 36 36" aria-hidden="true">
+      <path d="M18 3.5 33 15v17H22.5v-9.5h-9V32H3V15Z" fill="currentColor" />
+      <circle cx="18" cy="27.5" r="2.6" fill="#c97b4a" />
+    </svg>
+  );
+}
 
 export function SiteHeader() {
   return (
@@ -16,9 +25,7 @@ export function SiteHeader() {
       </a>
       <div className="container header-inner">
         <Link className="brand" href="/" aria-label="Aging at Home Advisor, home">
-          <span className="brand-mark" aria-hidden="true">
-            AH
-          </span>
+          <span className="brand-mark"><HouseMark /></span>
           <span>
             <strong>Aging at Home</strong>
             <small>Advisor</small>
@@ -31,8 +38,12 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+        <a className="header-phone" href="tel:+18333632420">
+          <small>Call for guidance</small>
+          <strong>(833) 363-2420</strong>
+        </a>
         <Link className="button button--header" href="/contact/">
-          Find local options
+          Find Options Near You
         </Link>
         <details className="mobile-nav">
           <summary>Menu</summary>
@@ -42,11 +53,11 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/contact/">Find local options</Link>
+            <a href="tel:+18333632420">Call (833) 363-2420</a>
+            <Link href="/contact/">Find Options Near You</Link>
           </nav>
         </details>
       </div>
     </header>
   );
 }
-

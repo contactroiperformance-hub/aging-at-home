@@ -86,7 +86,9 @@ export function ArticlePage({
             ) : null}
           </div>
         </section>
-        <div className={`container article-layout ${isLegal ? "article-layout--legal" : ""}`}>
+        <div
+          className={`container article-layout ${isGuide ? "article-layout--guide" : ""} ${isLegal ? "article-layout--legal" : ""}`}
+        >
           <article className="prose">
             <div className="answer-box">
               <strong>At a glance</strong>
@@ -153,4 +155,3 @@ export function ArticlePage({
     </>
   );
 }
-

@@ -13,33 +13,33 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    title: "Tub-to-shower conversion",
+    title: "Tub-to-Shower Conversion",
     description:
-      "Replace a high tub wall with a lower-entry shower while planning for drainage, seating, grab bars, and waterproofing.",
+      "Replace a difficult-to-enter bathtub with a safer, lower-entry shower.",
     href: "/tub-to-shower-conversion/",
     image: "tub-to-shower-conversion",
     alt: "Low-threshold shower created by converting a bathtub alcove",
   },
   {
-    title: "Walk-in showers",
+    title: "Walk-In Showers",
     description:
-      "Compare low-threshold and curbless layouts, seats, controls, flooring, and other practical safety features.",
+      "Explore accessible showers with low thresholds, seating, and safety features.",
     href: "/walk-in-showers/",
     image: "walk-in-shower",
     alt: "Residential walk-in shower with a built-in bench and grab bar",
   },
   {
-    title: "Walk-in tubs",
+    title: "Walk-In Tubs",
     description:
-      "Understand door seals, fill and drain times, seated bathing, installation needs, costs, and tradeoffs.",
+      "Compare walk-in bathtub options, features, costs, and installation considerations.",
     href: "/walk-in-tubs/",
     image: "walk-in-tub",
     alt: "Residential walk-in tub with the side door open",
   },
   {
-    title: "Accessible bathroom remodel",
+    title: "Accessible Bathroom Remodel",
     description:
-      "Plan the whole room—from doorway and floor space to shower, toilet, sink, lighting, and storage.",
+      "Plan a more complete bathroom update for comfort, accessibility, and long-term use.",
     href: "/accessible-bathroom-remodel/",
     image: "accessible-remodel",
     alt: "Warm, residential bathroom with accessibility features",
@@ -83,32 +83,48 @@ export default function HomePage() {
       <main id="main-content">
         <section className="home-hero">
           <div className="container home-hero__grid">
-            <div>
-              <p className="eyebrow">Independent guidance for safer homes</p>
-              <h1>Make your home safer for the years ahead.</h1>
+            <div className="home-hero__copy">
+              <p className="eyebrow">Independent guidance for a safer home</p>
+              <h1>Make Your Home Safer for the Years Ahead</h1>
               <p className="lede">
-                Compare accessible bathroom projects, understand realistic
-                planning ranges, find possible financial assistance, and check
-                local project options—without pressure or exaggerated claims.
+                Explore accessible bathroom solutions, understand costs and
+                financial assistance, and connect with qualified home improvement
+                professionals.
               </p>
-              <div className="trust-row" aria-label="Our standards">
-                <span>Source-led</span>
-                <span>No fabricated local prices</span>
-                <span>Plain-language guidance</span>
+              <div className="hero-actions">
+                <Link className="button button--primary" href="/contact/">
+                  Find Options Near You
+                </Link>
+                <Link className="button button--secondary" href="/bathroom-accessibility/">
+                  Explore Bathroom Solutions
+                </Link>
               </div>
               <ZipCheck label="See local options" />
             </div>
             <figure>
               <Picture
                 name="home-accessible-bathroom"
-                alt="Bright residential bathroom with a low-entry shower, grab bars, and clear floor space"
+                alt="Bright accessible bathroom with a low-threshold walk-in shower in natural daylight"
                 eager
+                sizes="(max-width: 780px) 100vw, 48vw"
               />
-              <figcaption>
-                A safer bathroom should still feel like home: comfortable,
-                attractive, and planned around the person using it.
-              </figcaption>
             </figure>
+          </div>
+        </section>
+
+        <section className="home-proof" aria-label="Why use Aging at Home Advisor">
+          <div className="container home-proof__grid">
+            {[
+              "Independent consumer guidance",
+              "Clear cost information",
+              "Local project options",
+              "Free, no-obligation request",
+            ].map((item) => (
+              <span key={item}>
+                <i aria-hidden="true">✓</i>
+                {item}
+              </span>
+            ))}
           </div>
         </section>
 
@@ -116,10 +132,12 @@ export default function HomePage() {
           <div className="container">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">Start with the right project</p>
-                <h2>Bathroom options for different needs</h2>
+                <h2>What would you like to make safer?</h2>
+                <p>
+                  Start with the project you&apos;re considering. Each option
+                  explains what&apos;s involved, typical costs, and what to plan for.
+                </p>
               </div>
-              <Link href="/bathroom-accessibility/">Compare all options</Link>
             </div>
             <div className="service-grid">
               {services.map((service) => (
@@ -131,7 +149,7 @@ export default function HomePage() {
                     </h3>
                     <p>{service.description}</p>
                     <Link className="text-link" href={service.href}>
-                      Explore this option <span aria-hidden="true">→</span>
+                      Learn more <span aria-hidden="true">→</span>
                     </Link>
                   </div>
                 </article>
@@ -225,4 +243,3 @@ export default function HomePage() {
     </>
   );
 }
-

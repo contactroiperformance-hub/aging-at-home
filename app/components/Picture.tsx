@@ -3,6 +3,7 @@ type PictureProps = {
   alt: string;
   className?: string;
   eager?: boolean;
+  sizes?: string;
 };
 
 export function Picture({
@@ -10,16 +11,23 @@ export function Picture({
   alt,
   className = "",
   eager = false,
+  sizes = "(max-width: 780px) 100vw, (max-width: 1220px) 50vw, 600px",
 }: PictureProps) {
+  const srcSet = (format: "avif" | "webp") =>
+    [480, 800, 1200]
+      .map((width) => `/images/${name}-${width}.${format} ${width}w`)
+      .join(", ");
+
   return (
     <picture className={`picture ${className}`.trim()}>
-      <source srcSet={`/images/${name}.avif`} type="image/avif" />
-      <source srcSet={`/images/${name}.webp`} type="image/webp" />
+      <source srcSet={srcSet("avif")} sizes={sizes} type="image/avif" />
+      <source srcSet={srcSet("webp")} sizes={sizes} type="image/webp" />
       <img
-        src={`/images/${name}.webp`}
+        src={`/images/${name}-1200.jpg`}
         alt={alt}
-        width="1600"
-        height="1000"
+        width="1200"
+        height="750"
+        sizes={sizes}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={eager ? "high" : "auto"}
         decoding="async"
@@ -27,4 +35,3 @@ export function Picture({
     </picture>
   );
 }
-

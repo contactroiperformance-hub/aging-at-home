@@ -57,7 +57,7 @@ test("server-renders a complete, canonical homepage", async () => {
   const html = await response.text();
   assert.match(html, /<title>Safer Bathroom Planning for Aging at Home/);
   assert.match(html, /rel="canonical" href="https:\/\/agingathomeadvisor.com\/"/);
-  assert.match(html, /Make your home safer for the years ahead/);
+  assert.match(html, /Make Your Home Safer for the Years Ahead/);
   assert.match(html, /<main id="main-content">/);
   assert.match(html, /type="application\/ld\+json"/);
   assert.match(html, /Organization/);
@@ -93,4 +93,3 @@ test("ships crawl and generative-discovery files", async () => {
   assert.match(llms, /Editorial conventions/);
   assert.doesNotMatch(robots, /Disallow:\s*\//);
 });
-
