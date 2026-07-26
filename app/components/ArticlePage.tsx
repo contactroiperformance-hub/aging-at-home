@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Breadcrumbs, Crumb } from "./Breadcrumbs";
 import { Picture } from "./Picture";
 import { StructuredData } from "./StructuredData";
@@ -76,10 +75,6 @@ export function ArticlePage({
               <p className="eyebrow">{page.eyebrow}</p>
               <h1>{page.title}</h1>
               <p className="lede lead">{page.description}</p>
-              <div className="review-line meta">
-                <span>Published July 2026</span>
-                <span>Source-led editorial process</span>
-              </div>
             </div>
             {page.image && page.imageAlt ? (
               <Picture name={page.image} alt={page.imageAlt} eager />
@@ -90,10 +85,6 @@ export function ArticlePage({
           className={`container wrap article-layout article-shell ${isGuide ? "article-layout--guide" : ""} ${isLegal ? "article-layout--legal" : ""}`}
         >
           <article className="prose">
-            <div className="answer-box note">
-              <strong>At a glance</strong>
-              <p>{page.description}</p>
-            </div>
             {extras}
             {page.blocks.map((block, index) => {
               if (block.type === "heading") {
@@ -121,32 +112,17 @@ export function ArticlePage({
                     </li>
                   ))}
                 </ul>
-                <p className="source-date fine">
-                  Source list and page content last checked July 2026. Benefit,
-                  permit, and program details should be confirmed with the issuing
-                  authority before making a decision.
-                </p>
               </section>
             ) : null}
           </article>
           {!isLegal ? (
             <aside className="article-aside sidebar">
               <div className="aside-card card card--panel">
-                <p className="eyebrow">Local project options</p>
-                <h2>Start with your ZIP code</h2>
-                <p>
-                  Check whether independent professionals may serve your area.
-                  Coverage varies by ZIP code and project.
+                <ZipCheck compact label="Find Options Near You" />
+                <p className="fine">
+                  Free and no obligation. We’ll show whether professionals serve
+                  your area.
                 </p>
-                <ZipCheck compact label="Continue" />
-              </div>
-              <div className="aside-card aside-card--plain card">
-                <h2>Use trustworthy information</h2>
-                <p>
-                  We do not publish fabricated local prices, ratings, offices, or
-                  guaranteed benefit claims.
-                </p>
-                <Link href="/editorial-policy/">Read our editorial policy</Link>
               </div>
             </aside>
           ) : null}

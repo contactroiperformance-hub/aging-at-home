@@ -42,7 +42,7 @@ export function SiteHeader() {
           <small>Call for guidance</small>
           <strong>(833) 363-2420</strong>
         </a>
-        <Link className="button button--header btn btn--cta" href="/contact/">
+        <Link className="button button--header btn btn--cta" href="/lead-form/?source=header">
           Find Options Near You
         </Link>
         <details className="mobile-nav">
@@ -54,7 +54,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <a href="tel:+18333632420">Call (833) 363-2420</a>
-            <Link href="/contact/">Find Options Near You</Link>
+            <Link href="/lead-form/?source=mobile-header">Find Options Near You</Link>
           </nav>
         </details>
       </div>

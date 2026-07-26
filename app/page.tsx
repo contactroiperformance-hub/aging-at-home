@@ -7,7 +7,7 @@ import { ZipCheck } from "./components/ZipCheck";
 export const metadata: Metadata = {
   title: "Safer Bathroom Planning for Aging at Home",
   description:
-    "Independent, plain-language guidance on accessible bathroom projects for older adults—costs, options, safety, financial assistance, and local planning.",
+    "Independent, plain-language guidance on accessible bathroom projects for older adults — costs, options, safety and funding, plus local project options by ZIP code.",
   alternates: { canonical: "/" },
 };
 
@@ -48,22 +48,43 @@ const services = [
 
 const guides = [
   {
-    title: "Walk-in tub vs. walk-in shower",
+    title: "Walk-In Tub vs. Walk-In Shower",
+    description:
+      "How the two options compare on safety, comfort, cost, and everyday use.",
     href: "/guides/walk-in-tub-vs-walk-in-shower/",
   },
   {
-    title: "Tub-to-shower conversion costs",
+    title: "Does Medicare Cover Walk-In Tubs?",
+    description:
+      "What Medicare typically does and does not pay for, and where else to look.",
+    href: "/guides/does-medicare-cover-walk-in-tubs/",
+  },
+  {
+    title: "Tub-to-Shower Conversion Costs",
+    description:
+      "What drives the price of a conversion and how to budget realistically.",
     href: "/guides/tub-to-shower-conversion-cost/",
   },
   {
-    title: "Bathroom safety checklist",
+    title: "Bathroom Safety Checklist",
+    description:
+      "A room-by-room checklist for spotting and fixing common bathroom hazards.",
     href: "/guides/bathroom-safety-checklist-older-adults/",
   },
   {
-    title: "Medicare and walk-in tubs",
-    href: "/guides/does-medicare-cover-walk-in-tubs/",
+    title: "Home Modification Grants for Older Adults",
+    description:
+      "Programs that may help pay for accessibility improvements, state by state.",
+    href: "/financial-assistance/",
   },
 ];
+
+const costRanges = [
+  ["Tub-to-shower conversion", "$3,000–$8,000"],
+  ["Walk-in shower", "$4,000–$12,000"],
+  ["Walk-in tub", "$5,000–$15,000"],
+  ["Full accessible bathroom remodel", "$15,000–$40,000"],
+] as const;
 
 export default function HomePage() {
   return (
@@ -76,7 +97,7 @@ export default function HomePage() {
           url: "https://agingathomeadvisor.com/",
           name: "Safer Bathroom Planning for Aging at Home",
           description:
-            "Independent, source-led guidance on accessible bathroom projects, safety, costs, and assistance.",
+            "Independent, plain-language guidance on accessible bathroom projects for older adults — costs, options, safety and funding, plus local project options by ZIP code.",
           isPartOf: { "@id": "https://agingathomeadvisor.com/#organization" },
         }}
       />
@@ -92,7 +113,7 @@ export default function HomePage() {
                 professionals.
               </p>
               <div className="hero-actions">
-                <Link className="button button--primary btn btn--cta" href="/contact/">
+                <Link className="button button--primary btn btn--cta" href="/lead-form/?source=home&page_type=home">
                   Find Options Near You
                 </Link>
                 <Link className="button button--secondary btn btn--ghost" href="/bathroom-accessibility/">
@@ -158,85 +179,97 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section section--tint section--band">
+        <section className="section section--band">
+          <div className="container wrap-wide">
+            <h2>A simpler way to plan a safer home</h2>
+            <div className="grid home-process-grid">
+              {[
+                ["1", "Explore your options", "Learn how each project works and which safety features matter most for your home."],
+                ["2", "Understand costs and assistance", "See typical cost ranges and learn where financial assistance may be available."],
+                ["3", "Connect with professionals", "Share your ZIP code to see whether qualified professionals serve your area."],
+              ].map(([number, title, description]) => (
+                <article className="card card--lg" key={number}>
+                  <span className="home-step-number">{number}</span>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--white" id="costs">
+          <div className="container wrap-wide">
+            <h2>Understand the cost before you begin</h2>
+            <p className="lead home-section-intro">
+              Typical national ranges for common bathroom accessibility projects.
+              Actual costs depend on your bathroom, materials, and local labor.
+            </p>
+            <div className="card card--lg home-cost-card">
+              {costRanges.map(([name, range]) => (
+                <div className="home-cost-row" key={name}>
+                  <strong>{name}</strong>
+                  <strong>{range}</strong>
+                </div>
+              ))}
+              <Link className="btn btn--teal" href="/bathroom-accessibility/#costs">
+                Compare Bathroom Project Costs
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--teal">
           <div className="container wrap-wide split-section">
             <div>
-              <p className="eyebrow">A practical planning process</p>
-              <h2>Make decisions in the right order</h2>
-              <p className="lede lede--small lead">
-                Start with daily barriers, then compare project scope, features,
-                funding, and written estimates. A product alone does not make a
-                bathroom accessible.
+              <h2>Financial assistance may be available</h2>
+              <p className="lead">
+                Some homeowners may qualify for assistance through Medicaid
+                programs, veterans&apos; benefits, local organizations, or home
+                modification programs.
               </p>
-              <Link className="button button--primary btn btn--cta" href="/bathroom-accessibility/">
-                Build your plan
+              <Link className="btn btn--ghost" href="/financial-assistance/">
+                Explore Financial Assistance
               </Link>
             </div>
-            <ol className="step-list">
-              <li>
-                <strong>Identify the difficult moments</strong>
-                <span>Entry, transfers, standing, controls, and floor traction.</span>
-              </li>
-              <li>
-                <strong>Compare suitable project types</strong>
-                <span>Choose around the person and the existing bathroom.</span>
-              </li>
-              <li>
-                <strong>Verify scope and credentials</strong>
-                <span>Review permits, licensing, insurance, materials, and warranties.</span>
-              </li>
-              <li>
-                <strong>Compare written estimates</strong>
-                <span>Local quotes—not national ranges—are the real project price.</span>
-              </li>
-            </ol>
+            <div className="home-finance-note">
+              <p>
+                <strong>Please note:</strong> eligibility varies by program, state,
+                personal circumstances, and project type. Assistance is never
+                guaranteed, and program rules can change. Always confirm details
+                with the relevant program.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section className="section section--white">
-          <div className="container wrap-wide editorial-grid">
-            <div>
-              <p className="eyebrow">Why readers can trust the process</p>
-              <h2>Useful answers without invented certainty</h2>
-              <p>
-                We distinguish sourced national planning ranges from real local
-                quotes. Benefit coverage is never guaranteed. Local pages identify
-                official permit authorities and public aging resources without
-                pretending we have local offices or vetted every professional.
-              </p>
-              <div className="link-cluster">
-                <Link className="chip" href="/editorial-policy/">Editorial policy</Link>
-                <Link className="chip" href="/how-we-make-money/">How we make money</Link>
-                <Link className="chip" href="/corrections-policy/">Corrections policy</Link>
-              </div>
-            </div>
-            <div className="guide-list card card--lg">
-              <h3>Popular planning guides</h3>
+        <section className="section section--white" id="guides">
+          <div className="container wrap-wide">
+            <h2>Helpful guides for planning ahead</h2>
+            <p className="lead home-section-intro">
+              Practical, plain-language answers to the questions families ask most.
+            </p>
+            <div className="grid">
               {guides.map((guide) => (
-                <Link href={guide.href} key={guide.href}>
-                  {guide.title} <span aria-hidden="true">→</span>
+                <Link className="card" href={guide.href} key={guide.href}>
+                  <span className="eyebrow">Guide</span>
+                  <h3>{guide.title}</h3>
+                  <p>{guide.description}</p>
+                  <strong>Read the guide →</strong>
                 </Link>
               ))}
-              <Link className="text-link" href="/guides/">
-                Browse every guide
-              </Link>
             </div>
           </div>
         </section>
 
-        <section className="cta-band section--teal">
-          <div className="container wrap-wide cta-band__inner">
-            <div>
-              <p className="eyebrow">Florida local guides</p>
-              <h2>Planning a tub-to-shower conversion in Florida?</h2>
-              <p>
-                Explore state guidance plus 17 city pages built from verified
-                permit, Census, assistance, and local-resource records.
-              </p>
-            </div>
-            <Link className="button button--light btn btn--ghost" href="/tub-to-shower-conversion/florida/">
-              Explore Florida guides
-            </Link>
+        <section className="section section--band">
+          <div className="container wrap home-final-cta">
+            <h2>Ready to explore options for your home?</h2>
+            <p className="lead">
+              Tell us what you are considering and see whether professionals
+              serve your area.
+            </p>
+            <ZipCheck label="Find Options Near You" />
           </div>
         </section>
       </main>

@@ -7,6 +7,7 @@ import {
   licenseGuidance,
   officialSources,
   statePage,
+  statePageContent,
 } from "@/data/florida-data.js";
 import {
   cities as importedCities,
@@ -171,33 +172,73 @@ function FloridaStatePage() {
         <section className="page-hero page-hero--state">
           <div className="container wrap-wide state-hero">
             <div>
-              <p className="eyebrow">Florida planning guide · Updated July 2026</p>
+              <p className="eyebrow">{statePageContent.eyebrow}</p>
               <h1>{statePage.h1}</h1>
-              <p className="lede lead">{statePage.meta_description}</p>
-              <ZipCheck label="Check local options" />
+              <p className="lede lead">{statePageContent.heroSupport}</p>
+              <ZipCheck label={statePageContent.finalCta.button} />
+              <p className="fine state-disclaimer">{statePageContent.heroDisclaimer}</p>
             </div>
-            <div className="range-card card card--lg card--panel">
-              <span className="stat-label">National planning range</span>
-              <strong className="stat">{statePage.national_cost_range.label}</strong>
-              <p>
-                Not a Florida quote. Local written estimates are the only real
-                project price.
-              </p>
-              <Link href="/guides/tub-to-shower-conversion-cost/">
-                Understand the cost range
-              </Link>
+            <div className="card card--lg card--panel">
+              <p>{statePageContent.intro}</p>
             </div>
           </div>
         </section>
 
-        <section className="section section--tight section--white">
+        <section className="section section--white">
+          <div className="container wrap-wide">
+            <h2>{statePageContent.projectTypesHeading}</h2>
+            <div className="grid state-project-grid">
+              {statePageContent.projectTypes.map((project) => (
+                <article className="card card--lg" key={project.name}>
+                  <h3>{project.name}</h3>
+                  <p>{project.desc}</p>
+                  <div className="row">
+                    <span className="chip">{project.complexity}</span>
+                    <span className="chip">{project.costPos}</span>
+                  </div>
+                  <p className="fine">
+                    <strong>Plan for:</strong> {project.planning}
+                  </p>
+                  <Link href={project.href}>{project.linkLabel} →</Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--tint section--band">
+          <div className="container wrap-wide">
+            <h2>{statePageContent.costHeading}</h2>
+            <div className="split-section split-section--wide state-cost-layout">
+              <div className="range-card card card--lg">
+                <span className="stat-label">National planning range</span>
+                <strong className="stat">{statePage.national_cost_range.label}</strong>
+                <p>{statePageContent.costNationalNote}</p>
+                <Link href="/guides/tub-to-shower-conversion-cost/">
+                  Read the conversion cost guide
+                </Link>
+              </div>
+              <div className="note">
+                <p>{statePageContent.costProprietaryNote}</p>
+              </div>
+            </div>
+            <h3>{statePageContent.costDriversHeading}</h3>
+            <div className="checklist grid grid--tight state-driver-list">
+              {statePageContent.costDrivers.map((driver) => (
+                <span key={driver}>✓ {driver}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--white">
           <div className="container wrap-wide">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Statewide context</p>
                 <h2>Florida housing and aging, by the numbers</h2>
               </div>
-              <span className="source-date">{demographics.vintage}</span>
+              <span className="source-date fine">{demographics.vintage}</span>
             </div>
             <div className="fact-grid grid">
               {demographics.metrics.map((metric) => (
@@ -218,29 +259,24 @@ function FloridaStatePage() {
         </section>
 
         <section className="section section--tint section--band">
-          <div className="container wrap-wide split-section split-section--wide">
-            <div>
-              <p className="eyebrow">Licensing and permits</p>
-              <h2>Verify the professional and the project scope</h2>
-              <p>{licenseGuidance.distinction}</p>
-              <p>{licenseGuidance.note}</p>
-              <a
-                className="button button--primary btn btn--teal"
-                href={licenseGuidance.license_search_url}
-                rel="noopener noreferrer"
-              >
-                Search Florida DBPR licenses
-              </a>
+          <div className="container wrap-wide">
+            <h2>{statePageContent.contractorHeading}</h2>
+            <p className="lead">{statePageContent.contractorIntro}</p>
+            <div className="checklist state-contractor-list">
+              {statePageContent.contractorPoints.map((point) => (
+                <span key={point}>✓ {point}</span>
+              ))}
             </div>
-            <div className="answer-box note">
-              <strong>Permits vary by address and scope</strong>
-              <p>
-                Plumbing, electrical, structural, or wider remodeling work may
-                require permits. Confirm the authority having jurisdiction with
-                the city or county and put responsibility for permits in the
-                written scope.
-              </p>
+            <div className="note">
+              <p>{statePageContent.permitNote}</p>
             </div>
+            <a
+              className="btn btn--teal"
+              href={licenseGuidance.license_search_url}
+              rel="noopener noreferrer"
+            >
+              Search Florida DBPR licenses
+            </a>
           </div>
         </section>
 
@@ -249,7 +285,8 @@ function FloridaStatePage() {
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Eligibility varies</p>
-                <h2>Financial assistance programs to investigate</h2>
+                <h2>{statePageContent.assistanceHeading}</h2>
+                <p>{statePageContent.assistanceIntro}</p>
               </div>
               <Link href="/financial-assistance/">Read the full assistance guide</Link>
             </div>
@@ -258,22 +295,45 @@ function FloridaStatePage() {
                 <article className="program-card card" key={program.program}>
                   <span className="stat-label">{program.agency}</span>
                   <h3>{program.program}</h3>
-                  <p>
-                    <strong>Who it serves:</strong> {program.population}
-                  </p>
-                  <p>
-                    <strong>Bathroom relevance:</strong> {program.relevance}
-                  </p>
-                  <a href={program.source} rel="noopener noreferrer">
-                    Official program page
-                  </a>
+                  <p><strong>Who it serves:</strong> {program.population}</p>
+                  <p><strong>Bathroom relevance:</strong> {program.relevance}</p>
+                  <a href={program.source} rel="noopener noreferrer">Official program page</a>
                 </article>
               ))}
             </div>
-            <p className="source-date fine">
-              Programs determine eligibility and approval. Status and funding
-              availability should be reconfirmed before work begins.
-            </p>
+            <div className="note"><p>{statePageContent.vaNote}</p></div>
+          </div>
+        </section>
+
+        <section className="section section--band">
+          <div className="container wrap-wide">
+            <h2>{statePageContent.considerationsHeading}</h2>
+            <div className="consideration-grid grid">
+              {statePageContent.considerations.map((item) => (
+                <article className="card" key={item.h}>
+                  <h3>{item.h}</h3>
+                  <p>{item.d}</p>
+                </article>
+              ))}
+            </div>
+            <p className="fine">{statePageContent.considerationsFooter}</p>
+          </div>
+        </section>
+
+        <section className="section section--white">
+          <div className="container wrap-wide">
+            <h2>{statePageContent.processHeading}</h2>
+            <ol className="state-process grid grid--tight">
+              {statePageContent.process.map((step, index) => (
+                <li className="card" key={step}>
+                  <span className="stat">{index + 1}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+            <Link href={statePageContent.processLink.href}>
+              {statePageContent.processLink.label} →
+            </Link>
           </div>
         </section>
 
@@ -282,7 +342,8 @@ function FloridaStatePage() {
             <div className="section-heading">
               <div>
                 <p className="eyebrow">17 publication-ready city records</p>
-                <h2>Florida city guides</h2>
+                <h2>{statePageContent.cityDirectoryHeading}</h2>
+                <p>{statePageContent.cityDirectoryIntro}</p>
               </div>
             </div>
             <div className="city-directory grid grid--tight">
@@ -309,6 +370,42 @@ function FloridaStatePage() {
         </section>
 
         <section className="section section--white">
+          <div className="container wrap-wide split-section split-section--wide">
+            <div>
+              <h2>{statePageContent.availabilityHeading}</h2>
+              <p>{statePageContent.availabilityBody}</p>
+            </div>
+            <div className="card card--panel">
+              <ZipCheck label="Check Local Options" />
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--band">
+          <div className="container wrap">
+            <h2>Frequently asked questions</h2>
+            <div className="faq-list">
+              {statePageContent.faqs.map((faq) => (
+                <details className="faq" key={faq.q}>
+                  <summary>{faq.q}</summary>
+                  <p>{faq.a}</p>
+                </details>
+              ))}
+            </div>
+            <div className="related-guides">
+              <p className="eyebrow">Related guides</p>
+              <div className="chip-list">
+                {statePageContent.related.map((related) => (
+                  <Link className="chip" href={related.href} key={related.href}>
+                    {related.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--white">
           <div className="container wrap-wide sources">
             <p className="eyebrow">Authoritative references</p>
             <h2>Florida source library</h2>
@@ -322,6 +419,15 @@ function FloridaStatePage() {
                 </li>
               ))}
             </ul>
+          </div>
+        </section>
+
+        <section className="section section--teal">
+          <div className="container wrap state-final-cta">
+            <h2>{statePageContent.finalCta.heading}</h2>
+            <p>{statePageContent.finalCta.body}</p>
+            <ZipCheck label={statePageContent.finalCta.button} />
+            <p className="fine">{statePageContent.finalCta.reassurance}</p>
           </div>
         </section>
       </main>

@@ -1345,6 +1345,267 @@ p {
   max-width: 670px;
 }
 
+.state-disclaimer,
+.state-project-grid,
+.state-cost-layout,
+.state-driver-list,
+.state-contractor-list,
+.consideration-grid,
+.state-process,
+.state-final-cta .zip-check {
+  margin-top: 24px;
+}
+
+.state-project-grid .row {
+  margin-top: 10px;
+}
+
+.state-cost-layout {
+  align-items: stretch;
+}
+
+.state-cost-layout > * {
+  min-width: min(100%, 300px);
+}
+
+.state-driver-list {
+  padding-block: 10px;
+}
+
+.state-process {
+  margin-bottom: 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.state-process li {
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+}
+
+.state-process .stat {
+  flex: 0 0 auto;
+}
+
+.state-final-cta {
+  text-align: center;
+}
+
+.state-final-cta .zip-check {
+  max-width: 620px;
+  margin-inline: auto;
+  border-radius: var(--radius);
+  padding: 20px;
+  background: var(--card);
+  text-align: left;
+}
+
+.lead-page {
+  padding: 44px 0 80px;
+}
+
+.lead-page__inner {
+  max-width: 808px;
+}
+
+.lead-progress {
+  margin-bottom: 28px;
+}
+
+.lead-progress .row {
+  justify-content: space-between;
+}
+
+.lead-progress__track {
+  height: 10px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--border);
+}
+
+.lead-progress__track span {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: var(--teal);
+  transition: width 180ms ease;
+}
+
+.lead-card {
+  gap: 26px;
+  box-shadow: var(--shadow);
+}
+
+.lead-card h1 {
+  font-size: 34px;
+}
+
+.lead-zip {
+  max-width: 230px;
+}
+
+.lead-fieldset {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.lead-fieldset legend {
+  margin-bottom: 12px;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.lead-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  gap: 12px;
+}
+
+.lead-choice {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.lead-choice:hover,
+.lead-choice--selected {
+  border-color: var(--teal);
+  background: var(--sage-tint);
+}
+
+.lead-choice input,
+.lead-consent input {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  accent-color: var(--teal);
+}
+
+.lead-back {
+  min-height: 44px;
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: var(--teal);
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.lead-notice {
+  gap: 14px;
+}
+
+.lead-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--body);
+  cursor: pointer;
+  font-size: 16.5px;
+  line-height: 1.55;
+}
+
+.lead-form-fine,
+.lead-platform-note {
+  text-align: center;
+}
+
+.lead-platform-note {
+  margin-top: 26px;
+}
+
+.lead-complete {
+  align-items: center;
+  text-align: center;
+}
+
+.lead-complete__check {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sage-tint);
+  color: var(--teal);
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.home-process-grid,
+.home-section-intro {
+  margin-top: 24px;
+}
+
+.home-step-number {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--card);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.home-cost-card {
+  margin-top: 28px;
+  gap: 0;
+}
+
+.home-cost-row {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.home-cost-row strong:last-child {
+  color: var(--teal);
+}
+
+.home-cost-card .btn {
+  align-self: flex-start;
+  margin-top: 24px;
+}
+
+.section--teal .btn--ghost {
+  margin-top: 22px;
+}
+
+.home-finance-note {
+  border: 1px solid rgba(247, 243, 233, 0.2);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  background: rgba(247, 243, 233, 0.08);
+}
+
+.home-final-cta {
+  text-align: center;
+}
+
+.home-final-cta .zip-check {
+  margin-inline: auto;
+  text-align: left;
+}
+
 @media (max-width: 1160px) {
   .desktop-nav,
   .button--header,

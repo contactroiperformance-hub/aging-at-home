@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 
 export function ZipCheck({
   compact = false,
@@ -10,6 +10,9 @@ export function ZipCheck({
   label?: string;
 }) {
   const [error, setError] = useState("");
+  const id = useId();
+  const inputId = `zip-${id.replace(/:/g, "")}`;
+  const errorId = `${inputId}-error`;
 
   function validate(event: FormEvent<HTMLFormElement>) {
     const form = event.currentTarget;
@@ -26,28 +29,28 @@ export function ZipCheck({
   return (
     <form
       className={`zip-check field ${compact ? "zip-check--compact" : ""}`}
-      action="/contact/"
+      action="/lead-form/"
       method="get"
       onSubmit={validate}
       noValidate
     >
-      <label htmlFor={compact ? "zip-compact" : "zip-main"}>Your ZIP code</label>
+      <label htmlFor={inputId}>Your ZIP code</label>
       <div className="zip-check__row">
         <input
-          id={compact ? "zip-compact" : "zip-main"}
+          id={inputId}
           name="zip"
           type="text"
           inputMode="numeric"
           autoComplete="postal-code"
           maxLength={5}
           pattern="[0-9]{5}"
-          aria-describedby={error ? "zip-error" : undefined}
+          aria-describedby={error ? errorId : undefined}
           placeholder="e.g. 33602"
         />
         <button className="btn btn--cta" type="submit">{label}</button>
       </div>
       {error ? (
-        <span id="zip-error" className="form-error" role="alert">
+        <span id={errorId} className="form-error" role="alert">
           {error}
         </span>
       ) : null}

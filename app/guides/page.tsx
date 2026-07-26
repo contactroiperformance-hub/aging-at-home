@@ -4,11 +4,12 @@ import { referencePages } from "../content/reference-pages";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Picture } from "../components/Picture";
 import { StructuredData } from "../components/StructuredData";
+import { ZipCheck } from "../components/ZipCheck";
 
 export const metadata: Metadata = {
   title: "Accessible Bathroom Planning Guides",
   description:
-    "Practical, sourced guides on accessible bathroom costs, comparisons, Medicare, Medicaid, VA benefits, project timelines, and safety.",
+    "Practical, sourced guides on accessible bathroom costs, comparisons, coverage and safety for older adults and their families.",
   alternates: { canonical: "/guides/" },
 };
 
@@ -27,7 +28,7 @@ export default function GuidesPage() {
           url: "https://agingathomeadvisor.com/guides/",
           name: "Accessible Bathroom Planning Guides",
           description:
-            "Source-led cost, safety, comparison, and financial-assistance guides.",
+            "Practical, sourced guides on accessible bathroom costs, comparisons, coverage and safety for older adults and their families.",
           isPartOf: { "@id": "https://agingathomeadvisor.com/#organization" },
         }}
       />
@@ -37,11 +38,13 @@ export default function GuidesPage() {
         </div>
         <section className="page-hero">
           <div className="container wrap narrow">
-            <p className="eyebrow">Source-led planning library</p>
+            <p className="eyebrow">Guides</p>
             <h1>Helpful guides for planning ahead</h1>
             <p className="lede lead">
-              Compare project types, understand costs, review safety features,
-              and learn where public benefits may—or may not—help.
+              Practical, plain-language answers about costs, comparisons,
+              coverage, and safety. Every guide below is published, fully
+              sourced, and dated — expert-review credits appear once a qualified
+              review is completed.
             </p>
           </div>
         </section>
@@ -64,6 +67,13 @@ export default function GuidesPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </section>
+        <section className="section section--band">
+          <div className="container wrap state-final-cta">
+            <h2>Done reading and ready to plan?</h2>
+            <p>See whether qualified bathroom professionals serve your area.</p>
+            <ZipCheck label="Find Options Near You" />
           </div>
         </section>
       </main>
