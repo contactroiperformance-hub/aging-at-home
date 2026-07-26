@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Draft pages are excluded via <meta name="robots" content="noindex, follow">.
+# They are deliberately NOT disallowed here — Google must crawl a page to see its noindex.
+
+Sitemap: https://agingathomeadvisor.com/sitemap.xml

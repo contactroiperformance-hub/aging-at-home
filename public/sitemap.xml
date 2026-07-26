@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://agingathomeadvisor.com/sitemaps/core-pages.xml</loc>
+    <lastmod>2026-07-26</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://agingathomeadvisor.com/sitemaps/guides.xml</loc>
+    <lastmod>2026-07-26</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://agingathomeadvisor.com/sitemaps/service-state-pages.xml</loc>
+    <lastmod>2026-07-26</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://agingathomeadvisor.com/sitemaps/service-city-pages.xml</loc>
+    <lastmod>2026-07-26</lastmod>
+  </sitemap>
+</sitemapindex>
