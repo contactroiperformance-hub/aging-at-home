@@ -157,15 +157,33 @@ test("server-renders a data-driven city page with local sources", async () => {
   assert.doesNotMatch(html, /LocalBusiness|AggregateRating|Review"/);
 });
 
-test("ships crawl and generative-discovery files", async () => {
-  const [robots, sitemap, llms] = await Promise.all([
+test("ships the supplied crawl files verbatim", async () => {
+  const [robots, sitemap] = await Promise.all([
     readFile(new URL("../public/robots.txt", import.meta.url), "utf8"),
     readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8"),
-    readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
   ]);
 
   assert.match(robots, /Sitemap: https:\/\/agingathomeadvisor.com\/sitemap.xml/);
   assert.match(sitemap, /service-city-pages.xml/);
-  assert.match(llms, /Editorial conventions/);
   assert.doesNotMatch(robots, /Disallow:\s*\//);
+});
+
+test("keeps every supplied page byte-for-byte through the build", async () => {
+  const manifest = await readFile(
+    new URL("./static-export-html.sha256", import.meta.url),
+    "utf8",
+  );
+  const entries = manifest.trim().split("\n").map((line) => {
+    const [hash, ...pathParts] = line.trim().split(/\s+/);
+    return { hash, path: pathParts.join(" ") };
+  });
+
+  assert.equal(entries.length, 50);
+  for (const entry of entries) {
+    for (const root of ["../public/", "../dist/client/"]) {
+      const body = await readFile(new URL(`${root}${entry.path}`, import.meta.url));
+      const hash = createHash("sha256").update(body).digest("hex");
+      assert.equal(hash, entry.hash, `${root}${entry.path}`);
+    }
+  }
 });

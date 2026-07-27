@@ -28,16 +28,14 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname.startsWith("/images/")) {
+    if ((request.method === "GET" || request.method === "HEAD") && env?.ASSETS) {
+      if (url.pathname.endsWith("/index.html")) {
+        url.pathname = url.pathname.slice(0, -"index.html".length);
+        return Response.redirect(url.toString(), 301);
+      }
+
       const asset = await env.ASSETS.fetch(request);
-      const headers = new Headers(asset.headers);
-      headers.set("Cache-Control", "public, max-age=31536000, immutable");
-      headers.set("X-Content-Type-Options", "nosniff");
-      return new Response(asset.body, {
-        status: asset.status,
-        statusText: asset.statusText,
-        headers,
-      });
+      if (asset.status !== 404) return asset;
     }
 
     if (url.pathname === "/_vinext/image") {
