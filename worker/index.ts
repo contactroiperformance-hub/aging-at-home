@@ -28,6 +28,11 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    if (url.hostname === "www.agingathomeadvisor.com") {
+      url.hostname = "agingathomeadvisor.com";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if ((request.method === "GET" || request.method === "HEAD") && env?.ASSETS) {
       if (url.pathname.endsWith("/index.html")) {
         url.pathname = url.pathname.slice(0, -"index.html".length);
