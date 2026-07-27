@@ -7,9 +7,12 @@
 <meta name="robots" content="index, follow">
 <meta name="description" content="Independent, plain-language guidance on accessible bathroom projects for older adults — costs, options, safety and funding, plus local project options by ZIP code.">
 <link rel="canonical" href="https://agingathomeadvisor.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&amp;family=Source+Sans+3:wght@400..700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/mobile.css">
+<link rel="preload" href="fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style data-performance-fonts>@font-face{font-family:'Source Sans 3';font-style:normal;font-weight:400 700;font-display:swap;src:url('fonts/source-sans-3-latin.woff2') format('woff2')}@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:400 700;font-display:swap;src:url('fonts/source-serif-4-latin.woff2') format('woff2')}</style>
+<style data-inline-mobile>.aaha-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:46px;height:44px;background:#FFFFFF;border:2px solid #164E52;border-radius:10px;cursor:pointer;padding:9px 10px;flex-shrink:0}.aaha-burger span{display:block;height:3px;border-radius:2px;background:#164E52}.aaha-burger:focus{outline:3px solid #164E52;outline-offset:2px}.aaha-nav-extra{display:none !important}.aaha-mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:55;background:#FFFFFF;border-top:1px solid #E7E0D2;box-shadow:0 -6px 18px rgba(34,49,47,.12);padding:10px 16px calc(10px+env(safe-area-inset-bottom,0px))}.aaha-mobile-cta a{display:block;background:#A34D22;color:#FFFFFF !important;text-align:center;font-size:18px;font-weight:700;padding:15px 20px;border-radius:10px;text-decoration:none;font-family:'Source Sans 3',Helvetica,Arial,sans-serif}header[data-ref="headerRef"]+[aria-hidden="true"]{height:80px !important}@media (max-width:1120px){.aaha-burger{display:flex}header[data-ref="headerRef"]>div{gap:12px !important;position:relative;flex-wrap:nowrap !important;justify-content:space-between}header[data-ref="headerRef"]>div>a{flex-shrink:1;min-width:0}header[data-ref="headerRef"]>div>div{display:none !important}header[data-ref="headerRef"] nav[aria-label="Main"]{display:none !important;position:absolute !important;top:100%;left:0;right:0;z-index:110;background:#FFFFFF;flex-direction:column !important;align-items:stretch;gap:2px !important;margin:0 !important;padding:8px 16px 16px !important;border-bottom:1px solid #E7E0D2;box-shadow:0 18px 30px rgba(34,49,47,.16)}header[data-ref="headerRef"] nav[aria-label="Main"].aaha-open{display:flex !important}header[data-ref="headerRef"] nav[aria-label="Main"] a{font-size:18px !important;padding:14px 12px !important;border-bottom:1px solid #F1EDE1;border-radius:0 !important}.aaha-nav-extra{display:flex !important;border-bottom:none !important}header[data-ref="headerRef"]+[aria-hidden="true"]{height:73px !important}}@media (max-width:920px){main [style*="position:sticky"]{position:static !important;max-height:none !important}main aside[style*="position:sticky"]{display:none !important}.aaha-side-hide{display:none !important}section[aria-label="Why use Aging at Home Advisor"] div{justify-content:flex-start !important}.aaha-mobile-cta{display:block}body.aaha-has-cta{padding-bottom:86px}body.aaha-has-cta [data-privacy-notice]{bottom:86px !important}}@media print{.aaha-mobile-cta,.aaha-burger{display:none !important}}</style>
+<link rel="stylesheet" href="css/mobile.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="css/mobile.css"></noscript>
 <style>body{margin:0;background:#FAF6EE;font-family:'Source Sans 3',Helvetica,Arial,sans-serif;color:#22312F} a{color:#164E52} a:hover{color:#0E3B3E}
 [id]{scroll-margin-top:170px}
 @media print{[data-print-hide]{display:none !important}}
@@ -87,7 +90,7 @@
 
       </div>
       <div style="min-height:420px;display:flex">
-        <img style="object-fit:cover;display:block;width:100%;min-height:420px;border-radius:18px" src="images/accessible-walk-in-shower-natural-light.jpeg" alt="Bright accessible bathroom with a low-threshold walk-in shower in natural daylight" fetchpriority="high" decoding="async">
+        <picture style="display:contents" data-responsive-image="1"><source type="image/webp" srcset="images/accessible-walk-in-shower-natural-light-480.webp 480w, images/accessible-walk-in-shower-natural-light-800.webp 800w, images/accessible-walk-in-shower-natural-light.webp 1024w" sizes="(max-width: 920px) calc(100vw - 48px), 600px"><img width="1024" height="1024" style="object-fit:cover;display:block;width:100%;min-height:420px;border-radius:18px" src="images/accessible-walk-in-shower-natural-light.jpeg" alt="Bright accessible bathroom with a low-threshold walk-in shower in natural daylight" fetchpriority="high" decoding="async"></picture>
       </div>
     </div>
   </section>
@@ -116,7 +119,7 @@
     <p style="margin:0 0 34px;font-size:19px;line-height:1.6;color:#3D4C49;max-width:680px">Start with the project you’re considering. Each option explains what’s involved, typical costs, and what to plan for.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 400px), 1fr));gap:22px">
       <a class="x5 x1" style="display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E7E0D2;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 1px 2px rgba(34,49,47,.05)" href="tub-to-shower-conversion/">
-        <div style="height:170px"><img style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/tub-to-shower-conversion-low-entry.jpeg" alt="Low-entry shower installed in place of a bathtub after a tub-to-shower conversion" loading="lazy" decoding="async"></div>
+        <div style="height:170px"><picture style="display:contents" data-responsive-image="1"><source type="image/webp" srcset="images/tub-to-shower-conversion-low-entry-480.webp 480w, images/tub-to-shower-conversion-low-entry-800.webp 800w, images/tub-to-shower-conversion-low-entry.webp 1024w" sizes="(max-width: 700px) calc(100vw - 48px), 320px"><img width="1024" height="1024" style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/tub-to-shower-conversion-low-entry.jpeg" alt="Low-entry shower installed in place of a bathtub after a tub-to-shower conversion" loading="lazy" decoding="async"></picture></div>
         <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1">
           <h3 style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:#22312F">Tub-to-Shower Conversion</h3>
           <p style="margin:0;font-size:18px;line-height:1.55;color:#3D4C49;flex:1">Replace a difficult-to-enter bathtub with a safer, lower-entry shower.</p>
@@ -124,7 +127,7 @@
         </div>
       </a>
       <a class="x5 x1" style="display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E7E0D2;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 1px 2px rgba(34,49,47,.05)" href="walk-in-showers/">
-        <div style="height:170px"><img style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/walk-in-shower-with-seat-and-grab-bar.jpeg" alt="Walk-in shower with a built-in seat and a wall-mounted grab bar" loading="lazy" decoding="async"></div>
+        <div style="height:170px"><picture style="display:contents" data-responsive-image="1"><source type="image/webp" srcset="images/walk-in-shower-with-seat-and-grab-bar-480.webp 480w, images/walk-in-shower-with-seat-and-grab-bar-800.webp 800w, images/walk-in-shower-with-seat-and-grab-bar.webp 1200w" sizes="(max-width: 700px) calc(100vw - 48px), 320px"><img width="1888" height="560" style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/walk-in-shower-with-seat-and-grab-bar.jpeg" alt="Walk-in shower with a built-in seat and a wall-mounted grab bar" loading="lazy" decoding="async"></picture></div>
         <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1">
           <h3 style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:#22312F">Walk-In Showers</h3>
           <p style="margin:0;font-size:18px;line-height:1.55;color:#3D4C49;flex:1">Explore accessible showers with low thresholds, seating, and safety features.</p>
@@ -132,7 +135,7 @@
         </div>
       </a>
       <a class="x5 x1" style="display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E7E0D2;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 1px 2px rgba(34,49,47,.05)" href="walk-in-tubs/">
-        <div style="height:170px"><img style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/walk-in-tub-residential-bathroom.jpeg" alt="Walk-in tub with a watertight door in a warm residential bathroom" loading="lazy" decoding="async"></div>
+        <div style="height:170px"><picture style="display:contents" data-responsive-image="1"><source type="image/webp" srcset="images/walk-in-tub-residential-bathroom-480.webp 480w, images/walk-in-tub-residential-bathroom-800.webp 800w, images/walk-in-tub-residential-bathroom.webp 1200w" sizes="(max-width: 700px) calc(100vw - 48px), 320px"><img width="1888" height="560" style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/walk-in-tub-residential-bathroom.jpeg" alt="Walk-in tub with a watertight door in a warm residential bathroom" loading="lazy" decoding="async"></picture></div>
         <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1">
           <h3 style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:#22312F">Walk-In Tubs</h3>
           <p style="margin:0;font-size:18px;line-height:1.55;color:#3D4C49;flex:1">Compare walk-in bathtub options, features, costs, and installation considerations.</p>
@@ -140,7 +143,7 @@
         </div>
       </a>
       <a class="x5 x1" style="display:flex;flex-direction:column;background:#FFFFFF;border:1px solid #E7E0D2;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 1px 2px rgba(34,49,47,.05)" href="accessible-bathroom-remodel/">
-        <div style="height:170px"><img style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/accessible-bathroom-remodel-bright.jpeg" alt="Bright, comfortable accessible bathroom after a full remodel" loading="lazy" decoding="async"></div>
+        <div style="height:170px"><picture style="display:contents" data-responsive-image="1"><source type="image/webp" srcset="images/accessible-bathroom-remodel-bright-480.webp 480w, images/accessible-bathroom-remodel-bright-800.webp 800w, images/accessible-bathroom-remodel-bright.webp 1024w" sizes="(max-width: 700px) calc(100vw - 48px), 320px"><img width="1024" height="1024" style="object-fit:cover;display:block;width:100%;height:170px;border-radius:0" src="images/accessible-bathroom-remodel-bright.jpeg" alt="Bright, comfortable accessible bathroom after a full remodel" loading="lazy" decoding="async"></picture></div>
         <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1">
           <h3 style="margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:24px;font-weight:700;color:#22312F">Accessible Bathroom Remodel</h3>
           <p style="margin:0;font-size:18px;line-height:1.55;color:#3D4C49;flex:1">Plan a more complete bathroom update for comfort, accessibility, and long-term use.</p>

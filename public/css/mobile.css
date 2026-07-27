@@ -1,11 +1,13 @@
-/* AgingAtHomeAdvisor.com — mobile layer (≤920px): hamburger nav, sticky CTA button, static sidebars */
+/* AgingAtHomeAdvisor.com — responsive layer: stable header, hamburger nav, sticky CTA button, static sidebars */
 .aaha-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:46px;height:44px;background:#FFFFFF;border:2px solid #164E52;border-radius:10px;cursor:pointer;padding:9px 10px;flex-shrink:0}
 .aaha-burger span{display:block;height:3px;border-radius:2px;background:#164E52}
 .aaha-burger:focus{outline:3px solid #164E52;outline-offset:2px}
 .aaha-nav-extra{display:none !important}
 .aaha-mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:55;background:#FFFFFF;border-top:1px solid #E7E0D2;box-shadow:0 -6px 18px rgba(34,49,47,.12);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
 .aaha-mobile-cta a{display:block;background:#A34D22;color:#FFFFFF !important;text-align:center;font-size:18px;font-weight:700;padding:15px 20px;border-radius:10px;text-decoration:none;font-family:'Source Sans 3',Helvetica,Arial,sans-serif}
-@media (max-width:920px){
+/* Reserve the final header height before JavaScript and fonts run to prevent CLS. */
+header[data-ref="headerRef"]+[aria-hidden="true"]{height:80px !important}
+@media (max-width:1120px){
   /* header: one row — logo left, hamburger right; phone + CTA move into the menu */
   .aaha-burger{display:flex}
   header[data-ref="headerRef"]>div{gap:12px !important;position:relative;flex-wrap:nowrap !important;justify-content:space-between}
@@ -15,6 +17,9 @@
   header[data-ref="headerRef"] nav[aria-label="Main"].aaha-open{display:flex !important}
   header[data-ref="headerRef"] nav[aria-label="Main"] a{font-size:18px !important;padding:14px 12px !important;border-bottom:1px solid #F1EDE1;border-radius:0 !important}
   .aaha-nav-extra{display:flex !important;border-bottom:none !important}
+  header[data-ref="headerRef"]+[aria-hidden="true"]{height:73px !important}
+}
+@media (max-width:920px){
   /* no sticky positioning on small screens: sidebars flow as normal blocks */
   main [style*="position:sticky"]{position:static !important;max-height:none !important}
   /* city pages: hide the desktop CTA card — replaced by the bottom button */

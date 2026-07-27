@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import test from "node:test";
 import {
   publishedCities,
@@ -201,11 +201,14 @@ test("ships the supplied mobile layer on all 50 pages", async () => {
     const pageUrl = new URL(`../public/${path}`, import.meta.url);
     const html = await readFile(pageUrl, "utf8");
     const links = [...html.matchAll(
-      /<link rel="stylesheet" href="([^"]*css\/mobile\.css)">/g,
+      /<link rel="stylesheet" href="([^"]*css\/mobile\.css)"[^>]*>/g,
     )];
-    assert.equal(links.length, 1, path);
-    const css = await readFile(new URL(links[0][1], pageUrl), "utf8");
+    assert.equal(links.length, 2, path);
+    const asyncLink = links.filter((link) => /media="print"/.test(link[0]));
+    assert.equal(asyncLink.length, 1, path);
+    const css = await readFile(new URL(asyncLink[0][1], pageUrl), "utf8");
     assert.match(css, /@media \(max-width:920px\)/);
+    assert.match(css, /@media \(max-width:1120px\)/);
     assert.match(css, /\.aaha-burger/);
     assert.match(css, /\.aaha-nav-extra/);
     assert.match(css, /\.aaha-side-hide/);
@@ -222,6 +225,62 @@ test("ships the supplied mobile layer on all 50 pages", async () => {
   assert.match(siteScript, /phone \+ CTA move into the mobile menu/);
   assert.match(siteScript, /hide guide sidebars \(TOC \+ CTA card\)/);
   assert.match(siteScript, /hiddenSidebars > 0/);
+});
+
+test("ships responsive images, local fonts, and a stable critical path", async () => {
+  const manifest = await readFile(
+    new URL("./static-export-html.sha256", import.meta.url),
+    "utf8",
+  );
+  const paths = manifest.trim().split("\n").map((line) =>
+    line.trim().split(/\s+/).slice(1).join(" "),
+  );
+  let imageCount = 0;
+
+  for (const path of paths) {
+    const html = await readFile(
+      new URL(`../public/${path}`, import.meta.url),
+      "utf8",
+    );
+    assert.match(html, /data-performance-fonts/);
+    assert.match(html, /source-sans-3-latin\.woff2/);
+    assert.match(html, /source-serif-4-latin\.woff2/);
+    assert.doesNotMatch(html, /fonts\.googleapis\.com/);
+    assert.match(html, /data-inline-mobile/);
+
+    const images = [...html.matchAll(/<img\b[^>]*>/g)];
+    imageCount += images.length;
+    for (const image of images) {
+      assert.match(image[0], /\bwidth="\d+"/, `${path}: image width`);
+      assert.match(image[0], /\bheight="\d+"/, `${path}: image height`);
+    }
+    assert.equal(
+      (html.match(/data-responsive-image=/g) ?? []).length,
+      images.length,
+      `${path}: responsive image wrappers`,
+    );
+  }
+
+  assert.equal(imageCount, 27);
+  const imageFiles = await readdir(new URL("../public/images/", import.meta.url));
+  const webpFiles = imageFiles.filter((file) => file.endsWith(".webp"));
+  assert.equal(webpFiles.length, 78);
+  const totalWebpBytes = (
+    await Promise.all(
+      webpFiles.map(async (file) =>
+        (await stat(new URL(`../public/images/${file}`, import.meta.url))).size
+      ),
+    )
+  ).reduce((total, size) => total + size, 0);
+  assert.ok(totalWebpBytes < 2_500_000, `WebP payload: ${totalWebpBytes}`);
+
+  const siteScript = await readFile(
+    new URL("../public/js/site.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(siteScript, /ResizeObserver/);
+  assert.doesNotMatch(siteScript, /offsetHeight/);
+  assert.match(siteScript, /setTimeout\(loadAnalytics, 8000\)/);
 });
 
 test("ships the supplied streamlined form disclosure", async () => {

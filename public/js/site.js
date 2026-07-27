@@ -13,17 +13,20 @@
     try { localStorage.setItem(n, v); } catch (e) {}
   }
 
-  /* ---- fixed header: keep spacer matched to real header height ---- */
-  function measure() {
-    var h = document.querySelector('[data-ref="headerRef"]');
-    if (!h) return;
-    var sp = h.nextElementSibling;
-    if (sp && sp.getAttribute('aria-hidden') === 'true' && h.offsetHeight) sp.style.height = h.offsetHeight + 'px';
+  /* ---- fixed header: CSS reserves the normal height; observe exceptional
+     changes without forcing a synchronous full-page layout. ---- */
+  var header = document.querySelector('[data-ref="headerRef"]');
+  var headerSpacer = header ? header.nextElementSibling : null;
+  if (header && headerSpacer && headerSpacer.getAttribute('aria-hidden') === 'true' && window.ResizeObserver) {
+    new ResizeObserver(function (entries) {
+      var entry = entries[0];
+      var box = entry && entry.borderBoxSize;
+      var blockSize = box && (box[0] ? box[0].blockSize : box.blockSize);
+      if (!blockSize) return;
+      var nextHeight = Math.ceil(blockSize) + 'px';
+      if (headerSpacer.style.height !== nextHeight) headerSpacer.style.height = nextHeight;
+    }).observe(header);
   }
-  measure();
-  setTimeout(measure, 600); /* after fonts load */
-  window.addEventListener('load', measure);
-  window.addEventListener('resize', measure);
 
   /* ---- first-visit privacy notice ---- */
   var notice = document.querySelector('[data-privacy-notice]');
@@ -176,7 +179,6 @@
     function closeMenu() {
       hnav.classList.remove('aaha-open');
       burger.setAttribute('aria-expanded', 'false');
-      measure();
     }
     burger.addEventListener('click', function () {
       var open = hnav.classList.toggle('aaha-open');
@@ -216,7 +218,8 @@
   var adOut = getCookie('aaha_advertising_optout');
   if (gpc && adOut === null) { setCookie('aaha_advertising_optout', 'true'); adOut = 'true'; }
   var anOut = getCookie('aaha_analytics_optout') === 'true';
-  if (GA4_ID && !anOut) {
+  function loadAnalytics() {
+    if (!GA4_ID || anOut || window.gtag) return;
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
@@ -225,6 +228,18 @@
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
     window.gtag('config', GA4_ID);
+  }
+  if (GA4_ID && !anOut) {
+    var analyticsTimer;
+    var scheduleAnalytics = function () {
+      if (analyticsTimer || window.gtag) return;
+      analyticsTimer = window.setTimeout(loadAnalytics, 8000);
+    };
+    if (document.readyState === 'complete') scheduleAnalytics();
+    else window.addEventListener('load', scheduleAnalytics, { once: true });
+    ['pointerdown', 'keydown', 'scroll'].forEach(function (eventName) {
+      window.addEventListener(eventName, loadAnalytics, { once: true, passive: true });
+    });
   }
   if (META_PIXEL_ID && adOut !== 'true') {
     !(function (f, b, e, v, n, t, x) {
