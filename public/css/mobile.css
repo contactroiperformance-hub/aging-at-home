@@ -1,0 +1,25 @@
+/* AgingAtHomeAdvisor.com — mobile layer (≤920px): hamburger nav, sticky CTA button, static sidebars */
+.aaha-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:46px;height:44px;background:#FFFFFF;border:2px solid #164E52;border-radius:10px;cursor:pointer;padding:9px 10px;flex-shrink:0}
+.aaha-burger span{display:block;height:3px;border-radius:2px;background:#164E52}
+.aaha-burger:focus{outline:3px solid #164E52;outline-offset:2px}
+.aaha-mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:55;background:#FFFFFF;border-top:1px solid #E7E0D2;box-shadow:0 -6px 18px rgba(34,49,47,.12);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.aaha-mobile-cta a{display:block;background:#A34D22;color:#FFFFFF !important;text-align:center;font-size:18px;font-weight:700;padding:15px 20px;border-radius:10px;text-decoration:none;font-family:'Source Sans 3',Helvetica,Arial,sans-serif}
+@media (max-width:920px){
+  /* header: collapse nav behind the hamburger */
+  .aaha-burger{display:flex}
+  header[data-ref="headerRef"]>div{gap:12px !important;position:relative}
+  header[data-ref="headerRef"] nav[aria-label="Main"]{display:none !important;position:absolute !important;top:100%;left:0;right:0;z-index:110;background:#FFFFFF;flex-direction:column !important;align-items:stretch;gap:2px !important;margin:0 !important;padding:8px 16px 16px !important;border-bottom:1px solid #E7E0D2;box-shadow:0 18px 30px rgba(34,49,47,.16)}
+  header[data-ref="headerRef"] nav[aria-label="Main"].aaha-open{display:flex !important}
+  header[data-ref="headerRef"] nav[aria-label="Main"] a{font-size:18px !important;padding:14px 12px !important;border-bottom:1px solid #F1EDE1;border-radius:0 !important}
+  header[data-ref="headerRef"] nav[aria-label="Main"] a:last-child{border-bottom:none}
+  header[data-ref="headerRef"] a[href^="tel:"]{display:none !important}
+  header[data-ref="headerRef"] a[href$="get-started/"]{font-size:15px !important;padding:11px 14px !important}
+  /* city pages: hide the desktop sticky CTA card — replaced by the bottom button */
+  main aside[style*="position:sticky"]{display:none !important}
+  /* guide pages: sidebar becomes a normal block instead of a sticky column */
+  [data-print-hide][style*="position:sticky"]{position:static !important;max-height:none !important}
+  .aaha-mobile-cta{display:block}
+  body.aaha-has-cta{padding-bottom:86px}
+  body.aaha-has-cta [data-privacy-notice]{bottom:86px !important}
+}
+@media print{.aaha-mobile-cta,.aaha-burger{display:none !important}}

@@ -187,3 +187,33 @@ test("keeps every supplied page byte-for-byte through the build", async () => {
     }
   }
 });
+
+test("ships the supplied mobile layer on all 50 pages", async () => {
+  const manifest = await readFile(
+    new URL("./static-export-html.sha256", import.meta.url),
+    "utf8",
+  );
+  const paths = manifest.trim().split("\n").map((line) =>
+    line.trim().split(/\s+/).slice(1).join(" "),
+  );
+
+  for (const path of paths) {
+    const pageUrl = new URL(`../public/${path}`, import.meta.url);
+    const html = await readFile(pageUrl, "utf8");
+    const links = [...html.matchAll(
+      /<link rel="stylesheet" href="([^"]*css\/mobile\.css)">/g,
+    )];
+    assert.equal(links.length, 1, path);
+    const css = await readFile(new URL(links[0][1], pageUrl), "utf8");
+    assert.match(css, /@media \(max-width:920px\)/);
+    assert.match(css, /\.aaha-burger/);
+    assert.match(css, /\.aaha-mobile-cta/);
+  }
+
+  const siteScript = await readFile(
+    new URL("../public/js/site.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(siteScript, /mobile: hamburger menu/);
+  assert.match(siteScript, /mobile: sticky CTA button/);
+});

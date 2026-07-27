@@ -146,6 +146,43 @@
     update();
   }
 
+  /* ---- mobile: hamburger menu ---- */
+  var hdr = document.querySelector('[data-ref="headerRef"]');
+  var hnav = hdr ? hdr.querySelector('nav[aria-label="Main"]') : null;
+  if (hdr && hnav) {
+    var burger = document.createElement('button');
+    burger.className = 'aaha-burger';
+    burger.setAttribute('aria-label', 'Menu');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = '<span></span><span></span><span></span>';
+    hdr.firstElementChild.appendChild(burger);
+    function closeMenu() {
+      hnav.classList.remove('aaha-open');
+      burger.setAttribute('aria-expanded', 'false');
+      measure();
+    }
+    burger.addEventListener('click', function () {
+      var open = hnav.classList.toggle('aaha-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    hnav.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 920) closeMenu(); });
+  }
+
+  /* ---- mobile: sticky CTA button replaces the desktop sidebar card ---- */
+  var ctaAside = document.querySelector('main aside');
+  if (ctaAside && ctaAside.querySelector('form[data-zip-form]')) {
+    var bar = document.createElement('div');
+    bar.className = 'aaha-mobile-cta';
+    var link = document.createElement('a');
+    var src2 = location.pathname.replace(/index\.html$/, '').replace(/^\/+|\/+$/g, '') || 'home';
+    link.href = root + 'get-started/?source=' + encodeURIComponent(src2);
+    link.textContent = 'Check Local Project Options';
+    bar.appendChild(link);
+    document.body.appendChild(bar);
+    document.body.classList.add('aaha-has-cta');
+  }
+
   /* ---- analytics & advertising (US opt-out model — see Cookie Policy) ----
      Fill in the IDs to activate. Tags never load for opted-out visitors or
      GPC browsers (advertising). Never send PII, form answers, or lead data. */
