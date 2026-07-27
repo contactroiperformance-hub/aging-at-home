@@ -253,6 +253,12 @@ test("ships responsive images, local fonts, and a stable critical path", async (
     for (const image of images) {
       assert.match(image[0], /\bwidth="\d+"/, `${path}: image width`);
       assert.match(image[0], /\bheight="\d+"/, `${path}: image height`);
+      const inlineStyle = image[0].match(/\bstyle="([^"]*)"/)?.[1] ?? "";
+      assert.match(
+        inlineStyle,
+        /(?:^|;)\s*height\s*:/,
+        `${path}: CSS-controlled image height`,
+      );
     }
     assert.equal(
       (html.match(/data-responsive-image=/g) ?? []).length,

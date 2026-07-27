@@ -32,6 +32,19 @@ function relativeUrl(fromDirectory, targetPath) {
   return path.relative(fromDirectory, targetPath).split(path.sep).join("/");
 }
 
+function preserveCssImageHeight(tag) {
+  const styleMatch = tag.match(/\bstyle="([^"]*)"/);
+  if (
+    !styleMatch ||
+    /(?:^|;)\s*height\s*:/i.test(styleMatch[1])
+  ) {
+    return tag;
+  }
+
+  const style = `${styleMatch[1].replace(/;+\s*$/, "")};height:auto`;
+  return tag.replace(styleMatch[0], `style="${style}"`);
+}
+
 function jpegDimensions(buffer) {
   let offset = 2;
   while (offset < buffer.length) {
@@ -112,7 +125,16 @@ for (const indexFile of indexFiles) {
   const imageTags = [...html.matchAll(/<img\b[^>]*>/g)];
   for (const match of imageTags.reverse()) {
     const tag = match[0];
-    if (/\bwidth=/.test(tag)) continue;
+    const cssSizedTag = preserveCssImageHeight(tag);
+    if (/\bwidth=/.test(tag)) {
+      if (cssSizedTag !== tag) {
+        html =
+          html.slice(0, match.index) +
+          cssSizedTag +
+          html.slice(match.index + tag.length);
+      }
+      continue;
+    }
     const src = tag.match(/\bsrc="([^"]+\.jpeg)"/)?.[1];
     if (!src) continue;
     const filename = path.basename(src);
@@ -133,7 +155,7 @@ for (const indexFile of indexFiles) {
       `${base}.webp ${fullWidth}w`,
       `" sizes="${sizes}">`,
     ].join("");
-    const enhancedImg = tag.replace(
+    const enhancedImg = cssSizedTag.replace(
       "<img ",
       `<img width="${dimensions.width}" height="${dimensions.height}" `,
     );
