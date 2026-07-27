@@ -186,9 +186,16 @@
     window.addEventListener('resize', function () { if (window.innerWidth > 920) closeMenu(); });
   }
 
-  /* ---- mobile: sticky CTA button replaces the desktop sidebar card ---- */
+  /* ---- mobile: hide guide sidebars (TOC + CTA card), except the checklist controls ---- */
+  var hiddenSidebars = 0;
+  document.querySelectorAll('main div[style*="position:sticky"], main aside[style*="position:sticky"]').forEach(function (el) {
+    if (!el.querySelector('[data-on-click="printPage"]')) { el.classList.add('aaha-side-hide'); hiddenSidebars++; }
+  });
+
+  /* ---- mobile: sticky CTA button replaces the desktop sidebar cards ---- */
   var ctaAside = document.querySelector('main aside');
-  if (ctaAside && ctaAside.querySelector('form[data-zip-form]')) {
+  var needBar = (ctaAside && ctaAside.querySelector('form[data-zip-form]')) || hiddenSidebars > 0;
+  if (needBar) {
     var bar = document.createElement('div');
     bar.className = 'aaha-mobile-cta';
     var link = document.createElement('a');
@@ -203,7 +210,7 @@
   /* ---- analytics & advertising (US opt-out model — see Cookie Policy) ----
      Fill in the IDs to activate. Tags never load for opted-out visitors or
      GPC browsers (advertising). Never send PII, form answers, or lead data. */
-  var GA4_ID = '';        /* e.g. 'G-XXXXXXXXXX' */
+  var GA4_ID = 'G-QBMDHKNH6S';
   var META_PIXEL_ID = ''; /* e.g. '1234567890' */
   var gpc = !!navigator.globalPrivacyControl;
   var adOut = getCookie('aaha_advertising_optout');

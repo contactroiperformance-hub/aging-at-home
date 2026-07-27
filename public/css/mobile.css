@@ -19,6 +19,8 @@
   main [style*="position:sticky"]{position:static !important;max-height:none !important}
   /* city pages: hide the desktop CTA card — replaced by the bottom button */
   main aside[style*="position:sticky"]{display:none !important}
+  /* guide pages: TOC + CTA sidebar blocks hidden on mobile — replaced by the bottom button */
+  .aaha-side-hide{display:none !important}
   /* trust row: left-align when stacked */
   section[aria-label="Why use Aging at Home Advisor"] div{justify-content:flex-start !important}
   .aaha-mobile-cta{display:block}

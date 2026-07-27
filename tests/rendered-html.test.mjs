@@ -208,6 +208,7 @@ test("ships the supplied mobile layer on all 50 pages", async () => {
     assert.match(css, /@media \(max-width:920px\)/);
     assert.match(css, /\.aaha-burger/);
     assert.match(css, /\.aaha-nav-extra/);
+    assert.match(css, /\.aaha-side-hide/);
     assert.match(css, /\.aaha-mobile-cta/);
     assert.match(css, /main \[style\*="position:sticky"\]\{position:static/);
   }
@@ -219,6 +220,8 @@ test("ships the supplied mobile layer on all 50 pages", async () => {
   assert.match(siteScript, /mobile: hamburger menu/);
   assert.match(siteScript, /mobile: sticky CTA button/);
   assert.match(siteScript, /phone \+ CTA move into the mobile menu/);
+  assert.match(siteScript, /hide guide sidebars \(TOC \+ CTA card\)/);
+  assert.match(siteScript, /hiddenSidebars > 0/);
 });
 
 test("ships the supplied streamlined form disclosure", async () => {
@@ -325,4 +328,40 @@ test("preserves technical SEO and local GEO signals across the static export", a
 
   assert.equal(indexableCount, 49);
   assert.equal(cityCount, 17);
+});
+
+test("configures the supplied Google tag through the privacy-aware loader", async () => {
+  const siteScript = await readFile(
+    new URL("../public/js/site.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(siteScript, /var GA4_ID = 'G-QBMDHKNH6S';/);
+  assert.match(siteScript, /googletagmanager\.com\/gtag\/js\?id=' \+ GA4_ID/);
+  assert.match(siteScript, /window\.gtag\('config', GA4_ID\)/);
+  assert.match(siteScript, /if \(GA4_ID && !anOut\)/);
+
+  const manifest = await readFile(
+    new URL("./static-export-html.sha256", import.meta.url),
+    "utf8",
+  );
+  for (const line of manifest.trim().split("\n")) {
+    const path = line.trim().split(/\s+/).slice(1).join(" ");
+    const html = await readFile(new URL(`../public/${path}`, import.meta.url), "utf8");
+    assert.doesNotMatch(
+      html,
+      /googletagmanager\.com\/gtag\/js/,
+      `${path}: analytics must remain opt-out gated`,
+    );
+  }
+});
+
+test("ships the supplied mobile lead-form auto-advance behavior", async () => {
+  const leadFormScript = await readFile(
+    new URL("../public/js/lead-form.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(leadFormScript, /function scrollToEl\(el\)/);
+  assert.match(leadFormScript, /function nextQuestion\(fromEl\)/);
+  assert.match(leadFormScript, /scrollToEl\(nextQuestion\(r\)\)/);
+  assert.match(leadFormScript, /if \(state\.consent\) scrollToEl\(submitBtn\)/);
 });

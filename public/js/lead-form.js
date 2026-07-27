@@ -47,6 +47,17 @@
   var submitBtn = s2 ? s2.querySelector('button[type="submit"]') : null;
   var backBtn = document.querySelector('[data-on-click="back"]');
 
+  function scrollToEl(el) {
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+    try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (err) { window.scrollTo(0, y); }
+  }
+  function nextQuestion(fromEl) {
+    var fs = fromEl.closest('fieldset');
+    var nxt = fs ? fs.nextElementSibling : null;
+    while (nxt && (nxt.hasAttribute('data-lf-error') || getComputedStyle(nxt).display === 'none')) nxt = nxt.nextElementSibling;
+    return nxt;
+  }
   function show(el) { if (el) el.style.display = el.getAttribute('data-show') || ''; }
   function hide(el) { if (el) el.style.display = 'none'; }
   function setError(el, msg) {
@@ -80,6 +91,8 @@
         state[field] = span ? span.textContent.trim() : '';
         setError(err1, ''); setError(err2, '');
         paintGroup();
+        /* auto-advance: scroll to the next question (or the button) */
+        scrollToEl(nextQuestion(r));
       });
     });
     return { radios: radios, paintGroup: paintGroup };
@@ -108,7 +121,11 @@
   if (nameInput) nameInput.addEventListener('input', function () { state.firstName = nameInput.value; });
   if (phoneInput) phoneInput.addEventListener('input', function () { state.phone = phoneInput.value; });
   if (emailInput) emailInput.addEventListener('input', function () { state.email = emailInput.value; });
-  if (consentBox) consentBox.addEventListener('change', function () { state.consent = consentBox.checked; setError(err2, ''); });
+  if (consentBox) consentBox.addEventListener('change', function () {
+    state.consent = consentBox.checked;
+    setError(err2, '');
+    if (state.consent) scrollToEl(submitBtn); /* auto-scroll to submit */
+  });
 
   if (s1) s1.addEventListener('submit', function (e) {
     e.preventDefault();
