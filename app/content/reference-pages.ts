@@ -598,7 +598,7 @@ export const referencePages = {
       },
       {
         "type": "paragraph",
-        "text": "[Full advertising-disclosure wording — placeholder, to remain editable.]"
+        "text": "Aging at Home Advisor is operated by ROI PERFORMANCE LLC. If you submit a project inquiry, we may share the information you provide with participating home-improvement professionals or service networks and may receive compensation for that connection. Compensation does not guarantee that a professional is available, obligate you to hire anyone, or change the standards applied to our editorial content. Read our How We Make Money and Advertising Disclosure pages for details."
       },
       {
         "type": "heading",
@@ -606,7 +606,7 @@ export const referencePages = {
       },
       {
         "type": "paragraph",
-        "text": "[Links to full Editorial Policy and Corrections Policy — placeholder.]"
+        "text": "Our Editorial Policy explains how we research, source, review, and update content. Our Corrections Policy explains how to report an error and how material corrections are disclosed."
       },
       {
         "type": "heading",
@@ -614,7 +614,7 @@ export const referencePages = {
       },
       {
         "type": "paragraph",
-        "text": "Our guides are written and reviewed by people with real experience in home accessibility, aging services, and consumer finance. Profiles below are placeholders until the team is finalized — we don’t invent credentials."
+        "text": "Aging at Home Advisor is published by ROI PERFORMANCE LLC. Our editorial team develops consumer guidance from public-agency resources, manufacturer documentation, industry sources, and the citations shown on each page. We do not display individual author or reviewer credentials unless they have been verified."
       },
       {
         "type": "heading",

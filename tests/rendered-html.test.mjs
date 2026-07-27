@@ -126,6 +126,28 @@ test("renders guide and service copy from the supplied references", async () => 
   assert.match(serviceHtml, /Free and no obligation/);
 });
 
+test("publishes the About page without unfinished placeholders", async () => {
+  const response = await render("/about/");
+  assert.equal(response.status, 200);
+  const renderedHtml = await response.text();
+  const staticHtml = await readFile(
+    new URL("../public/about/index.html", import.meta.url),
+    "utf8",
+  );
+
+  for (const html of [renderedHtml, staticHtml]) {
+    assert.match(html, /ROI PERFORMANCE LLC/);
+    assert.match(html, /Aging at Home Advisor Editorial Team|editorial team develops consumer guidance/);
+    assert.doesNotMatch(
+      html,
+      /\[(?:Full advertising|Links to full|Founder|Role|Two-line bio)|profiles? (?:below )?are placeholders/i,
+    );
+  }
+  assert.match(staticHtml, /href="\.\.\/advertising-disclosure\/"/);
+  assert.match(staticHtml, /href="\.\.\/editorial-policy\/"/);
+  assert.match(staticHtml, /href="\.\.\/corrections-policy\/"/);
+});
+
 test("keeps the supplied production design system byte-for-byte", async () => {
   const css = await readFile(
     new URL("../app/design-system.css", import.meta.url),
