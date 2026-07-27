@@ -207,7 +207,9 @@ test("ships the supplied mobile layer on all 50 pages", async () => {
     const css = await readFile(new URL(links[0][1], pageUrl), "utf8");
     assert.match(css, /@media \(max-width:920px\)/);
     assert.match(css, /\.aaha-burger/);
+    assert.match(css, /\.aaha-nav-extra/);
     assert.match(css, /\.aaha-mobile-cta/);
+    assert.match(css, /main \[style\*="position:sticky"\]\{position:static/);
   }
 
   const siteScript = await readFile(
@@ -216,4 +218,111 @@ test("ships the supplied mobile layer on all 50 pages", async () => {
   );
   assert.match(siteScript, /mobile: hamburger menu/);
   assert.match(siteScript, /mobile: sticky CTA button/);
+  assert.match(siteScript, /phone \+ CTA move into the mobile menu/);
+});
+
+test("ships the supplied streamlined form disclosure", async () => {
+  const html = await readFile(
+    new URL("../public/get-started/index.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(html, /<details[^>]*><summary[^>]*>How we use and share your information<\/summary>/);
+  assert.match(html, /Notice at Collection/);
+  assert.match(html, /Your Privacy Choices/);
+  assert.doesNotMatch(html, /This permission does not authorize prerecorded or artificial-voice calls/);
+  assert.doesNotMatch(html, /Consent records \(wording, version, timestamp/);
+});
+
+test("preserves technical SEO and local GEO signals across the static export", async () => {
+  const manifest = await readFile(
+    new URL("./static-export-html.sha256", import.meta.url),
+    "utf8",
+  );
+  const paths = manifest.trim().split("\n").map((line) =>
+    line.trim().split(/\s+/).slice(1).join(" "),
+  );
+  const sitemap = (
+    await Promise.all(
+      [
+        "core-pages.xml",
+        "guides.xml",
+        "service-state-pages.xml",
+        "service-city-pages.xml",
+      ].map((file) =>
+        readFile(new URL(`../public/sitemaps/${file}`, import.meta.url), "utf8"),
+      ),
+    )
+  ).join("\n");
+  const titles = new Set();
+  const descriptions = new Set();
+  let indexableCount = 0;
+  let cityCount = 0;
+
+  for (const path of paths) {
+    const html = await readFile(
+      new URL(`../public/${path}`, import.meta.url),
+      "utf8",
+    );
+    const route = path === "index.html"
+      ? "/"
+      : `/${path.replace(/index\.html$/, "")}`;
+    const robots = html.match(/<meta name="robots" content="([^"]+)"/)?.[1] ?? "";
+
+    assert.match(html, /<html lang="en">/, path);
+    assert.match(
+      html,
+      /<meta name="viewport" content="width=device-width, initial-scale=1">/,
+      path,
+    );
+    assert.match(robots, /(?:index|noindex), follow/, path);
+
+    for (const image of html.matchAll(/<img\b([^>]*)>/g)) {
+      assert.match(image[1], /\balt="[^"]+"/, `${path}: image alt`);
+    }
+
+    if (robots.includes("noindex")) continue;
+    indexableCount += 1;
+
+    const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
+    const description = html.match(
+      /<meta name="description" content="([^"]+)"/,
+    )?.[1] ?? "";
+    const expectedCanonical = `https://agingathomeadvisor.com${route}`;
+
+    assert.ok(title.length >= 20, `${path}: title`);
+    assert.ok(description.length >= 70, `${path}: description`);
+    assert.match(
+      html,
+      new RegExp(
+        `<link rel="canonical" href="${expectedCanonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}">`,
+      ),
+      `${path}: canonical`,
+    );
+    assert.ok(sitemap.includes(`<loc>${expectedCanonical}</loc>`), `${path}: sitemap`);
+    assert.equal((html.match(/<h1(?:\s[^>]*)?>/g) ?? []).length, 1, `${path}: h1`);
+    assert.ok(!titles.has(title), `${path}: duplicate title`);
+    assert.ok(!descriptions.has(description), `${path}: duplicate description`);
+    titles.add(title);
+    descriptions.add(description);
+
+    if (
+      path.startsWith("tub-to-shower-conversion/florida/") &&
+      path !== "tub-to-shower-conversion/florida/index.html"
+    ) {
+      cityCount += 1;
+      assert.match(html, /type="application\/ld\+json"/, path);
+      assert.match(html, /"@type":"WebPage"/, path);
+      assert.match(html, /BreadcrumbList/, path);
+      assert.match(html, /https:\/\/data\.census\.gov\//, path);
+      assert.match(html, /Checked July 2026/, path);
+    }
+
+    if (path.startsWith("guides/") && path !== "guides/index.html") {
+      assert.match(html, /id="sources"/, `${path}: sources`);
+    }
+  }
+
+  assert.equal(indexableCount, 49);
+  assert.equal(cityCount, 17);
 });

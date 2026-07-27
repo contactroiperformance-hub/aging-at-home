@@ -156,6 +156,23 @@
     burger.setAttribute('aria-expanded', 'false');
     burger.innerHTML = '<span></span><span></span><span></span>';
     hdr.firstElementChild.appendChild(burger);
+    /* phone + CTA move into the mobile menu (hidden on desktop via .aaha-nav-extra) */
+    var telA = hdr.querySelector('a[href^="tel:"]');
+    var ctaA = hdr.querySelector('a[href$="get-started/"]');
+    if (telA) {
+      var t = telA.cloneNode(true);
+      t.className = 'aaha-nav-extra';
+      t.style.marginTop = '8px';
+      hnav.appendChild(t);
+    }
+    if (ctaA) {
+      var c2 = ctaA.cloneNode(true);
+      c2.className = 'aaha-nav-extra';
+      c2.style.textAlign = 'center';
+      c2.style.justifyContent = 'center';
+      c2.style.marginTop = '10px';
+      hnav.appendChild(c2);
+    }
     function closeMenu() {
       hnav.classList.remove('aaha-open');
       burger.setAttribute('aria-expanded', 'false');
