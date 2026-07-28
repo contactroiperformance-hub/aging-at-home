@@ -45,6 +45,32 @@ function preserveCssImageHeight(tag) {
   return tag.replace(styleMatch[0], `style="${style}"`);
 }
 
+function normalizeBreadcrumbUrls(html) {
+  return html.replace(
+    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+    (script, json) => {
+      let data;
+      try {
+        data = JSON.parse(json);
+      } catch {
+        return script;
+      }
+      if (data?.["@type"] !== "BreadcrumbList") return script;
+
+      let changed = false;
+      for (const listItem of data.itemListElement ?? []) {
+        if (typeof listItem.item === "string" && listItem.item.startsWith("/")) {
+          listItem.item = `https://agingathomeadvisor.com${listItem.item}`;
+          changed = true;
+        }
+      }
+      return changed
+        ? `<script type="application/ld+json">${JSON.stringify(data)}</script>`
+        : script;
+    },
+  );
+}
+
 function jpegDimensions(buffer) {
   let offset = 2;
   while (offset < buffer.length) {
@@ -83,6 +109,7 @@ const indexFiles = await findIndexFiles(publicRoot);
 for (const indexFile of indexFiles) {
   const directory = path.dirname(indexFile);
   let html = await readFile(indexFile, "utf8");
+  html = normalizeBreadcrumbUrls(html);
 
   const sansUrl = relativeUrl(
     directory,

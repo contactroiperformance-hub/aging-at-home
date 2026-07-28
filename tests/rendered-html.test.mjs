@@ -371,6 +371,26 @@ test("preserves technical SEO and local GEO signals across the static export", a
       assert.match(image[1], /\balt="[^"]+"/, `${path}: image alt`);
     }
 
+    for (const script of html.matchAll(
+      /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+    )) {
+      const data = JSON.parse(script[1]);
+      if (data?.["@type"] !== "BreadcrumbList") continue;
+      for (const item of data.itemListElement ?? []) {
+        assert.equal(
+          typeof item.item,
+          "string",
+          `${path}: breadcrumb item URL type`,
+        );
+        const itemUrl = new URL(item.item);
+        assert.equal(
+          itemUrl.origin,
+          "https://agingathomeadvisor.com",
+          `${path}: breadcrumb item URL origin`,
+        );
+      }
+    }
+
     if (robots.includes("noindex")) continue;
     indexableCount += 1;
 
